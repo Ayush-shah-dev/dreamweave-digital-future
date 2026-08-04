@@ -35,7 +35,7 @@
   --font-display: "Clash Display", "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
-
+/* simple vercel BS */
 :root {
   --radius: 0.75rem;
   --background: oklch(0.13 0.005 60);
