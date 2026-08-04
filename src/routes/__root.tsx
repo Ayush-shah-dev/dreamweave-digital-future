@@ -77,21 +77,58 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Dreamweave Digital — Creator Marketing Agency in Gujarat" },
+      {
+        name: "description",
+        content:
+          "Dreamweave Digital connects brands with India's top creators — influencer marketing, campaign management and cinematic content shoots from Gandhinagar.",
+      },
+      { name: "author", content: "Dreamweave Digital" },
+      { property: "og:site_name", content: "Dreamweave Digital" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "theme-color", content: "#050505" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://api.fontshare.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://api.fontshare.com/v2/css?f[]=clash-display@600,500,700&f[]=satoshi@500,700&display=swap",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Dreamweave Digital",
+          description:
+            "Creator marketing agency connecting brands with premium content creators — influencer marketing, campaign management, content shoots and reel production.",
+          slogan: "Crafting Your Vision. Digitally.",
+          founder: { "@type": "Person", name: "Meet Bhai" },
+          telephone: "+91 63541 18698",
+          areaServed: ["Gujarat", "India"],
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "508, President Complex, Sector 11",
+            addressLocality: "Gandhinagar",
+            addressRegion: "Gujarat",
+            postalCode: "382011",
+            addressCountry: "IN",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 23.2156, longitude: 72.6369 },
+          openingHours: "Mo-Sa 10:00-19:00",
+          priceRange: "₹₹₹",
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +156,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <LoadingScreen />
+      <SmoothScroll />
+      <ScrollProgress />
+      <CursorGlow />
+      <Nav />
+      <main>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </main>
+      <Footer />
+      <WhatsAppFloat />
+      <Toaster position="bottom-center" />
     </QueryClientProvider>
   );
 }
+
