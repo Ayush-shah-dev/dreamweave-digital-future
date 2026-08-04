@@ -24,11 +24,11 @@ export function Cta({
   variant = "primary",
   className,
 }: {
-  to?: string;
-  href?: string;
+  to?: string | undefined;
+  href?: string | undefined;
   children: ReactNode;
-  variant?: Variant;
-  className?: string;
+  variant?: Variant | undefined;
+  className?: string | undefined;
 }) {
   const inner = (
     <>
@@ -60,9 +60,9 @@ export function WhatsAppCta({
   className,
 }: {
   children?: ReactNode;
-  message?: string;
-  variant?: Variant;
-  className?: string;
+  message?: string | undefined;
+  variant?: Variant | undefined;
+  className?: string | undefined;
 }) {
   return (
     <Cta href={waLink(message)} variant={variant} className={className}>
