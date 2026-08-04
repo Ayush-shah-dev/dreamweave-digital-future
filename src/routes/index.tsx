@@ -329,7 +329,7 @@ function Home() {
               <p className="relative text-xs tracking-[0.2em] text-primary uppercase">{c.category}</p>
               <h3 className="relative mt-3 text-2xl">{c.title}</h3>
               <p className="relative text-sm text-muted-foreground">{c.brand}</p>
-              <dl className="relative absolute right-6 bottom-6 left-6 mt-8 grid grid-cols-3 gap-2 text-center">
+              <dl className="absolute right-6 bottom-6 left-6 mt-8 grid grid-cols-3 gap-2 text-center">
                 {[
                   ["Views", c.views],
                   ["Creators", `${c.creators}`],
