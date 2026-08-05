@@ -1,7 +1,7 @@
 export const BRAND = {
   name: "Dreamweave Digital",
   tagline: "Crafting Your Vision. Digitally.",
-  founder: "Meet Bhai",
+  founder: "Mit Prajapati",
   address: "508, President Complex, Sector 11, Gandhinagar, Gujarat 382011, India",
   city: "Gandhinagar",
   phoneDisplay: "+91 63541 18698",
