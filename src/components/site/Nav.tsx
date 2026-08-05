@@ -9,22 +9,12 @@ import { cn } from "@/lib/utils";
 export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn("flex items-center gap-2.5", className)}>
-      <span className="relative grid h-8 w-8 place-items-center">
-        <span className="bg-ember absolute inset-0 rounded-[10px] opacity-90 blur-[6px]" />
-        <span className="bg-ember relative grid h-8 w-8 place-items-center rounded-[10px]">
-          <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" aria-hidden>
-            <path
-              d="M4 18c4-10 12-10 16 0M4 6c4 10 12 10 16 0"
-              fill="none"
-              stroke="oklch(0.14 0.01 50)"
-              strokeWidth="2.1"
-              strokeLinecap="round"
-            />
-          </svg>
-        </span>
-      </span>
-      <span className="font-display text-[1.05rem] leading-none font-semibold tracking-tight">
-        Dreamweave<span className="text-ember"> Digital</span>
+      <img
+        src="/logo.jpg"
+        alt={`${BRAND.name} logo`}
+        className="h-8 w-8 rounded-[10px] object-cover"
+      />
+      
       </span>
     </span>
   );
