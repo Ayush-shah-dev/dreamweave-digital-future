@@ -13,7 +13,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "The story of Dreamweave Digital — founded by Meet Bhai in Gandhinagar, building a creator-first marketing agency with an in-house studio serving brands across Gujarat and India.",
+          "The story of Dreamweave Digital — founded by Mit Prajapati in Gandhinagar, building a creator-first marketing agency with an in-house studio serving brands across Gujarat and India.",
       },
       { property: "og:title", content: "About Dreamweave Digital — Creator-First Since Day One" },
       {
@@ -60,7 +60,7 @@ function About() {
               <div className="glass-panel overflow-hidden rounded-[1.8rem]">
                 <img
                   src={founderImg}
-                  alt="Meet Bhai, founder of Dreamweave Digital"
+                  alt="Mit Prajapati, founder of Dreamweave Digital"
                   width={1024}
                   height={1280}
                   loading="lazy"
@@ -73,7 +73,7 @@ function About() {
             <SectionHeading
               label={`The ${BRAND.founder} Story`}
               title="From one camera in Sector 11 to Gujarat's creator engine."
-              copy="Meet Bhai began as an editor cutting reels overnight for local brands. The pattern was obvious: brands had budgets but no creative system, and creators had audiences but no reliable partners. Dreamweave Digital was built to be the bridge — with production quality good enough to stand next to national campaigns."
+              copy="Mit Prajapati began as an editor cutting reels overnight for local brands. The pattern was obvious: brands had budgets but no creative system, and creators had audiences but no reliable partners. Dreamweave Digital was built to be the bridge — with production quality good enough to stand next to national campaigns."
             />
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
               <Reveal>

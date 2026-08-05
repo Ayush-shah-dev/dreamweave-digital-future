@@ -140,7 +140,7 @@ function Home() {
               <div className="glass-panel relative overflow-hidden rounded-[1.8rem]">
                 <img
                   src={founderImg}
-                  alt="Meet Bhai, founder of Dreamweave Digital, on a film set in Gandhinagar"
+                  alt="Mit Prajapati, founder of Dreamweave Digital, on a film set in Gandhinagar"
                   width={1024}
                   height={1280}
                   loading="lazy"
@@ -156,11 +156,11 @@ function Home() {
         </div>
       </Section>
 
-      {/* MEET BHAI */}
+      {/* Mit BHAI */}
       <Section className="overflow-hidden">
         <SectionHeading
           align="center"
-          label={`Meet ${BRAND.founder}`}
+          label={`Mit Prajapati ${BRAND.founder}`}
           title="The director behind 500+ campaign shoots."
           copy="Camera, lights, drone, creators, fashion sets, BTS, studio — every frame we ship passes through his eye."
         />
