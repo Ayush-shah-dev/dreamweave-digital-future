@@ -12,9 +12,10 @@ export function Logo({ className }: { className?: string }) {
       <img
         src="/logo.jpg"
         alt={`${BRAND.name} logo`}
-        className="h-8 w-8 rounded-[10px] object-cover"
+        className="h-16 w-16 rounded-[2px] object-cover"
       />
-      
+      <span className="font-display text-[1.05rem] leading-none font-semibold tracking-tight">
+        Dreamweave<span className="text-ember"> Digital</span>
       </span>
     </span>
   );
