@@ -135,7 +135,10 @@ export function Footer() {
         <p>
           © {new Date().getFullYear()} {BRAND.name}. Founded by {BRAND.founder}.
         </p>
-        <p>Influencer Marketing Gujarat · Creator Agency Gandhinagar · Content Shoot Ahmedabad</p>
+        <div className="flex items-center gap-4">
+          <p>Influencer Marketing Gujarat · Creator Agency Gandhinagar · Content Shoot Ahmedabad</p>
+          <Link to="/admin/login" className="shrink-0 transition-colors hover:text-primary">Admin login</Link>
+        </div>
       </div>
     </footer>
   );

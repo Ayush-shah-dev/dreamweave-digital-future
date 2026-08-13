@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -12,11 +13,35 @@ import {
   Users,
 } from "lucide-react";
 import { ReelOrbit } from "@/components/site/ReelOrbit";
-import { Counter, MeshBackdrop, Reveal, SectionLabel, TiltCard, WordReveal } from "@/components/site/Motion";
+import {
+  Counter,
+  MeshBackdrop,
+  Reveal,
+  SectionLabel,
+  TiltCard,
+  WordReveal,
+} from "@/components/site/Motion";
 import { Cta, WhatsAppCta } from "@/components/site/Cta";
 import { Marquee } from "@/components/site/Marquee";
-import { CtaBand, FaqSection, Section, SectionHeading, faqSchema } from "@/components/site/Sections";
-import { BRAND, CAMPAIGNS, CREATORS, FAQS, PROCESS, SERVICES, STATS, TESTIMONIALS } from "@/lib/site";
+import {
+  CtaBand,
+  FaqSection,
+  Section,
+  SectionHeading,
+  faqSchema,
+} from "@/components/site/Sections";
+import {
+  BRAND,
+  CAMPAIGNS,
+  CREATORS,
+  FAQS,
+  PROCESS,
+  SERVICES,
+  STATS,
+  TESTIMONIALS,
+} from "@/lib/site";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
+import { listFeaturedTestimonials } from "@/lib/public-content";
 import founderImg from "@/assets/founder.jpg";
 import studioImg from "@/assets/studio.jpg";
 
@@ -30,7 +55,10 @@ export const Route = createFileRoute("/")({
         content:
           "Dreamweave Digital is a creator marketing agency in Gandhinagar connecting brands with India's top creators — influencer marketing, content shoots and reel production across Gujarat.",
       },
-      { property: "og:title", content: "Where Brands Meet India's Top Creators | Dreamweave Digital" },
+      {
+        property: "og:title",
+        content: "Where Brands Meet India's Top Creators | Dreamweave Digital",
+      },
       {
         property: "og:description",
         content:
@@ -48,6 +76,24 @@ export const Route = createFileRoute("/")({
 const SERVICE_ICONS = [Users, Clapperboard, Camera, Scissors, Sparkles, LineChart];
 
 function Home() {
+  // Decorative homepage section, not the page's primary content — fetched client-side with a
+  // static fallback rather than a route loader, so the prerendered homepage never depends on
+  // Supabase being configured or reachable at build time.
+  const featuredTestimonials = useQuery({
+    queryKey: ["public-featured-testimonials"],
+    queryFn: () => listFeaturedTestimonials(),
+    enabled: isSupabaseConfigured,
+    staleTime: 5 * 60 * 1000,
+  });
+  const testimonials =
+    featuredTestimonials.data && featuredTestimonials.data.length > 0
+      ? featuredTestimonials.data.map((t) => ({
+          quote: t.quote,
+          name: t.name,
+          org: [t.designation, t.company].filter(Boolean).join(", "),
+        }))
+      : TESTIMONIALS;
+
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
@@ -57,9 +103,15 @@ function Home() {
   return (
     <>
       {/* HERO */}
-      <section ref={heroRef} className="noise relative flex min-h-[100svh] items-center overflow-hidden">
+      <section
+        ref={heroRef}
+        className="noise relative flex min-h-[100svh] items-center overflow-hidden"
+      >
         <MeshBackdrop />
-        <motion.div style={{ scale: heroScale, opacity: heroOpacity, filter: heroBlur }} className="absolute inset-0">
+        <motion.div
+          style={{ scale: heroScale, opacity: heroOpacity, filter: heroBlur }}
+          className="absolute inset-0"
+        >
           <ReelOrbit />
         </motion.div>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_5%,var(--background)_72%)]" />
@@ -80,8 +132,8 @@ function Home() {
           </h1>
           <Reveal delay={0.25}>
             <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Create cinematic campaigns, viral reels, creator collaborations and premium social storytelling that
-              actually converts.
+              Create cinematic campaigns, viral reels, creator collaborations and premium social
+              storytelling that actually converts.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Cta to="/book-campaign">
@@ -100,7 +152,9 @@ function Home() {
                   <p className="text-ember font-display text-3xl font-semibold sm:text-4xl">
                     <Counter to={s.value} suffix={s.suffix} />
                   </p>
-                  <p className="mt-1.5 text-[0.72rem] tracking-wide text-muted-foreground uppercase">{s.label}</p>
+                  <p className="mt-1.5 text-[0.72rem] tracking-wide text-muted-foreground uppercase">
+                    {s.label}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -119,10 +173,19 @@ function Home() {
             />
             <div className="mt-10 space-y-6 border-l border-border pl-6">
               {[
-                { year: "2021", text: "Started as a two-person reel production unit in Gandhinagar." },
+                {
+                  year: "2021",
+                  text: "Started as a two-person reel production unit in Gandhinagar.",
+                },
                 { year: "2023", text: "Crossed 250 verified creators across Gujarat and India." },
-                { year: "2024", text: "Built our in-house studio, drone and post-production team." },
-                { year: "2026", text: "500+ campaign shoots and 20M+ views generated for 50+ brands." },
+                {
+                  year: "2024",
+                  text: "Built our in-house studio, drone and post-production team.",
+                },
+                {
+                  year: "2026",
+                  text: "500+ campaign shoots and 20M+ views generated for 50+ brands.",
+                },
               ].map((t, i) => (
                 <Reveal key={t.year} delay={i * 0.08}>
                   <div className="relative">
@@ -165,18 +228,25 @@ function Home() {
           copy="Camera, lights, drone, creators, fashion sets, BTS, studio — every frame we ship passes through his eye."
         />
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {["Camera & Lenses", "Lighting Design", "Drone Cinematography", "Creator Direction", "Fashion Shoots", "Behind The Scenes", "In-House Studio", "Post & Grade"].map(
-            (item, i) => (
-              <Reveal key={item} delay={(i % 4) * 0.07}>
-                <div className="glass-panel group flex h-36 flex-col justify-between rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
-                  <span className="font-display text-2xl text-white/15 transition-colors group-hover:text-primary/60">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="font-display text-lg">{item}</p>
-                </div>
-              </Reveal>
-            ),
-          )}
+          {[
+            "Camera & Lenses",
+            "Lighting Design",
+            "Drone Cinematography",
+            "Creator Direction",
+            "Fashion Shoots",
+            "Behind The Scenes",
+            "In-House Studio",
+            "Post & Grade",
+          ].map((item, i) => (
+            <Reveal key={item} delay={(i % 4) * 0.07}>
+              <div className="glass-panel group flex h-36 flex-col justify-between rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
+                <span className="font-display text-2xl text-white/15 transition-colors group-hover:text-primary/60">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="font-display text-lg">{item}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
         <Reveal delay={0.1}>
           <div className="glass-panel mt-6 overflow-hidden rounded-[1.8rem]">
@@ -218,7 +288,9 @@ function Home() {
                       <Icon className="h-5 w-5" />
                     </span>
                     <h3 className="relative mt-6 text-xl">{s.title}</h3>
-                    <p className="relative mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{s.blurb}</p>
+                    <p className="relative mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {s.blurb}
+                    </p>
                     <span className="relative mt-6 inline-flex items-center gap-1.5 text-sm text-primary">
                       Explore service
                       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -282,7 +354,10 @@ function Home() {
 
       {/* WHY BRANDS CHOOSE US — bento */}
       <Section>
-        <SectionHeading label="Why Brands Choose Us" title="Production quality of an agency. Speed of a creator." />
+        <SectionHeading
+          label="Why Brands Choose Us"
+          title="Production quality of an agency. Speed of a creator."
+        />
         <div className="mt-14 grid auto-rows-[minmax(11rem,auto)] gap-4 md:grid-cols-3">
           <Reveal className="md:col-span-2 md:row-span-2">
             <div className="glass-panel flex h-full flex-col justify-between rounded-[1.6rem] p-8">
@@ -292,8 +367,8 @@ function Home() {
                   <Counter to={20} suffix="M+" />
                 </p>
                 <p className="mt-3 max-w-md text-muted-foreground">
-                  Organic views generated across creator campaigns in the last 24 months — before a rupee of paid
-                  amplification.
+                  Organic views generated across creator campaigns in the last 24 months — before a
+                  rupee of paid amplification.
                 </p>
               </div>
             </div>
@@ -317,16 +392,24 @@ function Home() {
       {/* FEATURED CAMPAIGNS */}
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading label="Featured Campaigns" title="Campaigns that behaved like content, not ads." />
+          <SectionHeading
+            label="Featured Campaigns"
+            title="Campaigns that behaved like content, not ads."
+          />
         </div>
-        <Marquee className="mt-12 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]" speed={50}>
+        <Marquee
+          className="mt-12 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
+          speed={50}
+        >
           {CAMPAIGNS.map((c) => (
             <article
               key={c.title}
               className="glass-panel group relative h-64 w-[20rem] shrink-0 overflow-hidden rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 hover:border-primary/45 sm:w-[24rem]"
             >
               <div className="bg-ember absolute inset-x-0 -bottom-24 h-40 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-40" />
-              <p className="relative text-xs tracking-[0.2em] text-primary uppercase">{c.category}</p>
+              <p className="relative text-xs tracking-[0.2em] text-primary uppercase">
+                {c.category}
+              </p>
               <h3 className="relative mt-3 text-2xl">{c.title}</h3>
               <p className="relative text-sm text-muted-foreground">{c.brand}</p>
               <dl className="absolute right-6 bottom-6 left-6 mt-8 grid grid-cols-3 gap-2 text-center">
@@ -376,7 +459,11 @@ function Home() {
       {/* TESTIMONIALS */}
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading align="center" label="Testimonials" title="What brands and creators say." />
+          <SectionHeading
+            align="center"
+            label="Testimonials"
+            title="What brands and creators say."
+          />
         </div>
         <div className="mt-12 space-y-4">
           {[0, 1].map((row) => (
@@ -386,12 +473,14 @@ function Home() {
               speed={row === 1 ? 62 : 52}
               className="[mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
             >
-              {TESTIMONIALS.slice(row * 3, row * 3 + 3).map((t) => (
+              {testimonials.slice(row * 3, row * 3 + 3).map((t) => (
                 <figure
                   key={t.quote}
                   className="glass-panel w-[22rem] shrink-0 rounded-3xl p-7 transition-colors duration-500 hover:border-primary/40 sm:w-[28rem]"
                 >
-                  <blockquote className="text-sm leading-relaxed text-foreground/90">"{t.quote}"</blockquote>
+                  <blockquote className="text-sm leading-relaxed text-foreground/90">
+                    "{t.quote}"
+                  </blockquote>
                   <figcaption className="mt-5 text-xs text-muted-foreground">
                     <span className="text-primary">{t.name}</span> · {t.org}
                   </figcaption>
@@ -412,13 +501,16 @@ function Home() {
                 <SectionLabel>For Creators</SectionLabel>
                 <h2 className="mt-5 text-3xl sm:text-4xl">Get paid brand deals every month.</h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  Join 250+ verified creators receiving briefs that fit their category, signed scopes before the shoot
-                  and payouts within 15 days.
+                  Join 250+ verified creators receiving briefs that fit their category, signed
+                  scopes before the shoot and payouts within 15 days.
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Cta to="/apply">Apply Now</Cta>
-                <WhatsAppCta variant="ghost" message="Hi Dreamweave Digital 👋 I'm a creator and I'd like to join your network." >
+                <WhatsAppCta
+                  variant="ghost"
+                  message="Hi Dreamweave Digital 👋 I'm a creator and I'd like to join your network."
+                >
                   Message us
                 </WhatsAppCta>
               </div>
@@ -430,7 +522,8 @@ function Home() {
                 <SectionLabel>For Brands</SectionLabel>
                 <h2 className="mt-5 text-3xl sm:text-4xl">Launch your next campaign in 14 days.</h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  Strategy, creator matching, shoot, edit, publish and reporting — one team, one timeline, one invoice.
+                  Strategy, creator matching, shoot, edit, publish and reporting — one team, one
+                  timeline, one invoice.
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -470,7 +563,9 @@ function ProcessRail() {
               active === i ? "-translate-y-2 border-primary/50" : ""
             }`}
           >
-            <span className={`font-display text-5xl transition-colors ${active === i ? "text-ember" : "text-white/12"}`}>
+            <span
+              className={`font-display text-5xl transition-colors ${active === i ? "text-ember" : "text-white/12"}`}
+            >
               {p.step}
             </span>
             <h3 className="mt-6 text-xl">{p.title}</h3>

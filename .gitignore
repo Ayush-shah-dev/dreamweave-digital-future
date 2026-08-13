@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+node_modules/
 dist
 dist-ssr
 .output
@@ -15,6 +16,19 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
+*.tsbuildinfo
+.eslintcache
+coverage
+
+# OS junk
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Local build config (see .env.example)
+.env
+.env.*
+!.env.example
 
 # Wrangler / Cloudflare
 .wrangler/

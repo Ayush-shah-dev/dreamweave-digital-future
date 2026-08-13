@@ -1,0 +1,70 @@
+# Dreamweave Digital — static build config for Hostinger shared hosting (Apache / LiteSpeed).
+# This file is copied verbatim into the build output; upload it alongside index.html.
+
+Options -MultiViews -Indexes
+DirectoryIndex index.html
+
+# The build emits /about/index.html etc. DirectorySlash is off so /about is served directly
+# instead of being 301'd to /about/ — the rewrite below maps it to the right file.
+<IfModule mod_dir.c>
+  DirectorySlash Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS (X-Forwarded-Proto covers requests coming through Hostinger's proxy).
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Canonical URLs have no trailing slash (root excepted).
+  RewriteCond %{REQUEST_URI} !^/+$
+  RewriteRule ^(.+?)/+$ /$1 [R=301,L]
+
+  # /about -> /about/index.html, without an extra redirect.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.+)$ /$1/index.html [L]
+</IfModule>
+
+# Branded, prerendered not-found page with a real 404 status.
+ErrorDocument 404 /404.html
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json image/svg+xml
+  AddOutputFilterByType DEFLATE application/rss+xml font/woff2 application/manifest+json
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Hashed filenames — safe to cache forever.
+  <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|jpg|jpeg|png|gif|webp|avif|svg|ico|mp4|webm)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML and metadata must be revalidated so deploys go live immediately.
+  <FilesMatch "\.(html|xml|txt|json)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# Never serve source-control or build leftovers if they end up uploaded by mistake.
+# Wrapped in IfModule so a server without mod_authz_core skips the rule instead of 500-ing.
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(\.env.*|\.git.*|package(-lock)?\.json|bun\.lock|.*\.map)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>

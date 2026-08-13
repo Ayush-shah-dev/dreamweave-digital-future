@@ -1,8 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, KeyRound } from "lucide-react";
 import { NAV_LINKS, BRAND } from "@/lib/site";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { Cta } from "./Cta";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +26,8 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { isAdmin } = useAdminAuth();
+  const adminHref = isAdmin ? "/admin" : "/admin/login";
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -46,7 +49,9 @@ export function Nav() {
         aria-label="Primary"
         className={cn(
           "mx-auto flex max-w-7xl items-center justify-between gap-6 rounded-full px-4 py-2.5 transition-all duration-500 sm:px-5",
-          scrolled ? "glass-panel w-[calc(100%-1.5rem)]" : "w-[calc(100%-2rem)] border border-transparent",
+          scrolled
+            ? "glass-panel w-[calc(100%-1.5rem)]"
+            : "w-[calc(100%-2rem)] border border-transparent",
         )}
       >
         <Link to="/" aria-label={`${BRAND.name} home`}>
@@ -80,6 +85,13 @@ export function Nav() {
           <Cta to="/book-campaign" className="hidden px-5 py-2.5 text-[0.82rem] sm:inline-flex">
             Book Campaign
           </Cta>
+          <Link
+            to={adminHref}
+            className="hidden items-center gap-1.5 rounded-full border border-primary/40 px-3 py-2 text-xs text-primary transition hover:bg-primary hover:text-primary-foreground sm:inline-flex"
+            aria-label="Admin login"
+          >
+            <KeyRound className="h-3.5 w-3.5" /> Admin
+          </Link>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -102,18 +114,28 @@ export function Nav() {
             className="glass-panel mx-4 mt-2 rounded-3xl p-4 lg:hidden"
           >
             <ul className="grid gap-1">
-              {[...NAV_LINKS, { to: "/apply", label: "Apply as Creator" }, { to: "/book-campaign", label: "Book Campaign" }].map(
-                (l) => (
-                  <li key={l.to}>
-                    <Link
-                      to={l.to}
-                      className="block rounded-xl px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ),
-              )}
+              {[
+                ...NAV_LINKS,
+                { to: "/apply", label: "Apply as Creator" },
+                { to: "/book-campaign", label: "Book Campaign" },
+              ].map((l) => (
+                <li key={l.to}>
+                  <Link
+                    to={l.to}
+                    className="block rounded-xl px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to={adminHref}
+                  className="flex items-center gap-2 rounded-xl bg-primary/10 px-4 py-3 text-sm text-primary"
+                >
+                  <KeyRound className="h-4 w-4" /> {isAdmin ? "Admin dashboard" : "Admin login"}
+                </Link>
+              </li>
             </ul>
           </motion.div>
         )}
