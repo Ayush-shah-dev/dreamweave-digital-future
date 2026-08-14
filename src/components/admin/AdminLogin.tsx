@@ -123,7 +123,7 @@ export function AdminLogin() {
 
           <div className="mt-12">
             <p className="text-xs uppercase tracking-[0.25em] text-primary">Private access</p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight">
+            <h2 className="mt-3 font-display text-4xl tracking-tight text-[#171513]">
               {mode === "login" ? "Welcome back." : "Reset your password."}
             </h2>
             <p className="mt-3 text-sm leading-6 text-black/50">
@@ -149,7 +149,7 @@ export function AdminLogin() {
 
           {mode === "login" ? (
             <form onSubmit={handleSignIn} className="mt-8 space-y-5">
-              <label className="block text-sm font-medium">
+              <label className="block text-sm font-medium text-[#171513]">
                 Email address
                 <span className="relative mt-2 block">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35" />
@@ -159,11 +159,11 @@ export function AdminLogin() {
                     type="email"
                     required
                     placeholder="admin@dreamweave.digital"
-                    className="h-12 w-full rounded-xl border border-black/10 bg-white/70 pl-10 pr-4 text-sm outline-none focus:border-primary"
+                    className="h-12 w-full rounded-xl border border-black/10 bg-white/70 pl-10 pr-4 text-sm text-[#171513] outline-none placeholder:text-black/35 focus:border-primary"
                   />
                 </span>
               </label>
-              <label className="block text-sm font-medium">
+              <label className="block text-sm font-medium text-[#171513]">
                 Password
                 <span className="relative mt-2 block">
                   <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35" />
@@ -173,7 +173,7 @@ export function AdminLogin() {
                     type={showPassword ? "text" : "password"}
                     required
                     placeholder="Enter your password"
-                    className="h-12 w-full rounded-xl border border-black/10 bg-white/70 px-10 text-sm outline-none focus:border-primary"
+                    className="h-12 w-full rounded-xl border border-black/10 bg-white/70 px-10 text-sm text-[#171513] outline-none placeholder:text-black/35 focus:border-primary"
                   />
                   <button
                     type="button"
@@ -204,7 +204,7 @@ export function AdminLogin() {
             </form>
           ) : (
             <form onSubmit={handleForgotPassword} className="mt-8 space-y-5">
-              <label className="block text-sm font-medium">
+              <label className="block text-sm font-medium text-[#171513]">
                 Email address
                 <span className="relative mt-2 block">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35" />
@@ -214,7 +214,7 @@ export function AdminLogin() {
                     type="email"
                     required
                     placeholder="admin@dreamweave.digital"
-                    className="h-12 w-full rounded-xl border border-black/10 bg-white/70 pl-10 pr-4 text-sm outline-none focus:border-primary"
+                    className="h-12 w-full rounded-xl border border-black/10 bg-white/70 pl-10 pr-4 text-sm text-[#171513] outline-none placeholder:text-black/35 focus:border-primary"
                   />
                 </span>
               </label>
