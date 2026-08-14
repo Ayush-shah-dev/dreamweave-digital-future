@@ -1,11 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { AdminCollectionPage } from "@/components/admin/AdminCollectionPage";
-import { AdminShell } from "@/components/admin/AdminShell";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
+// Pure layout route — admin.testimonials.new and admin.testimonials.$id.edit are children of
+// this route in TanStack Router's flat file-based routing, so this must render <Outlet/> for
+// them to appear. The /admin/testimonials list itself lives in admin.testimonials.index.tsx.
 export const Route = createFileRoute("/admin/testimonials")({
-  component: AdminTestimonialsRoute,
+  component: Outlet,
 });
-
-function AdminTestimonialsRoute() {
-  return <AdminShell><AdminCollectionPage collection="testimonials" /></AdminShell>;
-}

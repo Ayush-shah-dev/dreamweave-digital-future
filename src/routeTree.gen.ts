@@ -23,11 +23,15 @@ import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBlogsRouteImport } from './routes/admin.blogs'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminBlogsIndexRouteImport } from './routes/admin.blogs.index'
 import { Route as AdminBlogsNewRouteImport } from './routes/admin.blogs.new'
+import { Route as AdminTestimonialsIndexRouteImport } from './routes/admin.testimonials.index'
 import { Route as AdminTestimonialsNewRouteImport } from './routes/admin.testimonials.new'
 import { Route as AdminBlogsIdEditRouteImport } from './routes/admin.blogs.$id.edit'
 import { Route as AdminTestimonialsIdEditRouteImport } from './routes/admin.testimonials.$id.edit'
@@ -102,6 +106,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBlogsRoute = AdminBlogsRouteImport.update({
   id: '/blogs',
   path: '/blogs',
@@ -117,15 +126,30 @@ const AdminTestimonialsRoute = AdminTestimonialsRouteImport.update({
   path: '/testimonials',
   getParentRoute: () => AdminRoute,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AdminBlogsIndexRoute = AdminBlogsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminBlogsRoute,
+} as any)
 const AdminBlogsNewRoute = AdminBlogsNewRouteImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => AdminBlogsRoute,
+} as any)
+const AdminTestimonialsIndexRoute = AdminTestimonialsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminTestimonialsRoute,
 } as any)
 const AdminTestimonialsNewRoute = AdminTestimonialsNewRouteImport.update({
   id: '/new',
@@ -162,8 +186,12 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/admin/blogs/new': typeof AdminBlogsNewRoute
   '/admin/testimonials/new': typeof AdminTestimonialsNewRoute
+  '/admin/blogs/': typeof AdminBlogsIndexRoute
+  '/admin/testimonials/': typeof AdminTestimonialsIndexRoute
   '/admin/blogs/$id/edit': typeof AdminBlogsIdEditRoute
   '/admin/testimonials/$id/edit': typeof AdminTestimonialsIdEditRoute
 }
@@ -171,9 +199,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRouteWithChildren
   '/apply': typeof ApplyRoute
-  '/blog': typeof BlogRouteWithChildren
   '/book-campaign': typeof BookCampaignRoute
   '/brands': typeof BrandsRoute
   '/case-studies': typeof CaseStudiesRoute
@@ -182,12 +208,14 @@ export interface FileRoutesByTo {
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/admin/blogs': typeof AdminBlogsRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
-  '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/blog': typeof BlogIndexRoute
   '/admin/blogs/new': typeof AdminBlogsNewRoute
   '/admin/testimonials/new': typeof AdminTestimonialsNewRoute
+  '/admin/blogs': typeof AdminBlogsIndexRoute
+  '/admin/testimonials': typeof AdminTestimonialsIndexRoute
   '/admin/blogs/$id/edit': typeof AdminBlogsIdEditRoute
   '/admin/testimonials/$id/edit': typeof AdminTestimonialsIdEditRoute
 }
@@ -211,8 +239,12 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/admin/blogs/new': typeof AdminBlogsNewRoute
   '/admin/testimonials/new': typeof AdminTestimonialsNewRoute
+  '/admin/blogs/': typeof AdminBlogsIndexRoute
+  '/admin/testimonials/': typeof AdminTestimonialsIndexRoute
   '/admin/blogs/$id/edit': typeof AdminBlogsIdEditRoute
   '/admin/testimonials/$id/edit': typeof AdminTestimonialsIdEditRoute
 }
@@ -237,8 +269,12 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/testimonials'
     | '/blog/$slug'
+    | '/admin/'
+    | '/blog/'
     | '/admin/blogs/new'
     | '/admin/testimonials/new'
+    | '/admin/blogs/'
+    | '/admin/testimonials/'
     | '/admin/blogs/$id/edit'
     | '/admin/testimonials/$id/edit'
   fileRoutesByTo: FileRoutesByTo
@@ -246,9 +282,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
-    | '/admin'
     | '/apply'
-    | '/blog'
     | '/book-campaign'
     | '/brands'
     | '/case-studies'
@@ -257,12 +291,14 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/services'
     | '/sitemap.xml'
-    | '/admin/blogs'
     | '/admin/login'
-    | '/admin/testimonials'
     | '/blog/$slug'
+    | '/admin'
+    | '/blog'
     | '/admin/blogs/new'
     | '/admin/testimonials/new'
+    | '/admin/blogs'
+    | '/admin/testimonials'
     | '/admin/blogs/$id/edit'
     | '/admin/testimonials/$id/edit'
   id:
@@ -285,8 +321,12 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/testimonials'
     | '/blog/$slug'
+    | '/admin/'
+    | '/blog/'
     | '/admin/blogs/new'
     | '/admin/testimonials/new'
+    | '/admin/blogs/'
+    | '/admin/testimonials/'
     | '/admin/blogs/$id/edit'
     | '/admin/testimonials/$id/edit'
   fileRoutesById: FileRoutesById
@@ -408,6 +448,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/blogs': {
       id: '/admin/blogs'
       path: '/blogs'
@@ -429,6 +476,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTestimonialsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -436,12 +490,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/admin/blogs/': {
+      id: '/admin/blogs/'
+      path: '/'
+      fullPath: '/admin/blogs/'
+      preLoaderRoute: typeof AdminBlogsIndexRouteImport
+      parentRoute: typeof AdminBlogsRoute
+    }
     '/admin/blogs/new': {
       id: '/admin/blogs/new'
       path: '/new'
       fullPath: '/admin/blogs/new'
       preLoaderRoute: typeof AdminBlogsNewRouteImport
       parentRoute: typeof AdminBlogsRoute
+    }
+    '/admin/testimonials/': {
+      id: '/admin/testimonials/'
+      path: '/'
+      fullPath: '/admin/testimonials/'
+      preLoaderRoute: typeof AdminTestimonialsIndexRouteImport
+      parentRoute: typeof AdminTestimonialsRoute
     }
     '/admin/testimonials/new': {
       id: '/admin/testimonials/new'
@@ -469,11 +537,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminBlogsRouteChildren {
   AdminBlogsNewRoute: typeof AdminBlogsNewRoute
+  AdminBlogsIndexRoute: typeof AdminBlogsIndexRoute
   AdminBlogsIdEditRoute: typeof AdminBlogsIdEditRoute
 }
 
 const AdminBlogsRouteChildren: AdminBlogsRouteChildren = {
   AdminBlogsNewRoute: AdminBlogsNewRoute,
+  AdminBlogsIndexRoute: AdminBlogsIndexRoute,
   AdminBlogsIdEditRoute: AdminBlogsIdEditRoute,
 }
 
@@ -483,11 +553,13 @@ const AdminBlogsRouteWithChildren = AdminBlogsRoute._addFileChildren(
 
 interface AdminTestimonialsRouteChildren {
   AdminTestimonialsNewRoute: typeof AdminTestimonialsNewRoute
+  AdminTestimonialsIndexRoute: typeof AdminTestimonialsIndexRoute
   AdminTestimonialsIdEditRoute: typeof AdminTestimonialsIdEditRoute
 }
 
 const AdminTestimonialsRouteChildren: AdminTestimonialsRouteChildren = {
   AdminTestimonialsNewRoute: AdminTestimonialsNewRoute,
+  AdminTestimonialsIndexRoute: AdminTestimonialsIndexRoute,
   AdminTestimonialsIdEditRoute: AdminTestimonialsIdEditRoute,
 }
 
@@ -498,22 +570,26 @@ interface AdminRouteChildren {
   AdminBlogsRoute: typeof AdminBlogsRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
   AdminTestimonialsRoute: typeof AdminTestimonialsRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogsRoute: AdminBlogsRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   AdminTestimonialsRoute: AdminTestimonialsRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
