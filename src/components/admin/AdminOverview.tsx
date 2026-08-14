@@ -1,9 +1,11 @@
 import { AlertCircle, FileText, MessageSquare, Plus, Sparkles, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { listBlogs, listTestimonials } from "@/lib/admin-content";
 
 export function AdminOverview() {
+  const [greeting, setGreeting] = useState("Welcome back");
   const blogsQuery = useQuery({ queryKey: ["blogs"], queryFn: listBlogs });
   const testimonialsQuery = useQuery({ queryKey: ["testimonials"], queryFn: listTestimonials });
 
@@ -11,6 +13,11 @@ export function AdminOverview() {
   const testimonials = testimonialsQuery.data ?? [];
   const isLoading = blogsQuery.isLoading || testimonialsQuery.isLoading;
   const isError = blogsQuery.isError || testimonialsQuery.isError;
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    setGreeting(hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening");
+  }, []);
 
   const stats = [
     {
@@ -38,7 +45,9 @@ export function AdminOverview() {
       <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
           <p className="mb-3 text-xs uppercase tracking-[0.25em] text-primary">Content workspace</p>
-          <h1 className="font-display text-4xl tracking-tight sm:text-5xl">Good morning, admin.</h1>
+          <h1 className="font-display text-4xl tracking-tight sm:text-5xl">
+            {greeting}, admin.
+          </h1>
           <p className="mt-3 max-w-xl text-sm leading-6 text-black/55">
             Manage the stories and social proof that make Dreamweave feel human.
           </p>

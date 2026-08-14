@@ -114,17 +114,17 @@ function BlogDetail() {
 
   return (
     <>
-      <section className="noise relative overflow-hidden pt-36 pb-16 sm:pt-44">
-        <div className="relative mx-auto max-w-3xl px-6">
+      <section className="noise relative overflow-hidden pt-28 pb-12 sm:pt-32 sm:pb-16">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to blog
           </Link>
-          <p className="mt-6 text-xs uppercase tracking-[0.2em] text-primary">{data.category}</p>
-          <h1 className="mt-4 text-3xl leading-[1.05] font-semibold sm:text-5xl">{data.title}</h1>
-          <p className="mt-5 text-xs text-muted-foreground">
+          <p className="mt-7 text-xs uppercase tracking-[0.28em] text-primary">{data.category}</p>
+          <h1 className="mt-4 max-w-5xl text-5xl leading-[0.98] font-semibold tracking-[-0.045em] sm:text-7xl lg:text-8xl">{data.title}</h1>
+          <p className="mt-5 text-sm text-muted-foreground sm:text-base">
             {data.authorName}
             {data.date && (
               <>
@@ -143,42 +143,44 @@ function BlogDetail() {
       </section>
 
       {data.coverImage && (
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-6xl px-6 sm:px-8">
           <img
             src={data.coverImage}
             alt=""
-            className="w-full rounded-[1.6rem] object-cover"
+            width={1600}
+            height={900}
+            className="aspect-[16/9] max-h-[72vh] w-full rounded-[2rem] border border-white/10 object-cover object-center shadow-2xl shadow-black/30"
             loading="lazy"
           />
         </div>
       )}
 
-      <Section>
+      <Section className="py-14 sm:py-20">
         <Reveal>
           {/* Content is stored and rendered as plain text (no dangerouslySetInnerHTML) — safe
               by construction until a sanitized rich-text pipeline replaces the textarea editor. */}
-          <div className="prose prose-neutral mx-auto max-w-3xl whitespace-pre-wrap text-base leading-relaxed text-foreground/90">
-            {data.content}
+          <div className="mx-auto max-w-3xl text-lg leading-[1.9] text-foreground/90 sm:text-xl sm:leading-[1.85]">
+            <BlogContent content={data.content} />
           </div>
         </Reveal>
       </Section>
 
       {data.related.length > 0 && (
         <Section className="pt-0">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary">More like this</p>
+          <div className="mx-auto max-w-5xl">
+            <p className="text-xs uppercase tracking-[0.25em] text-primary">More like this</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               {data.related.map((post) => (
                 <Link
                   key={post.slug}
                   to="/blog/$slug"
                   params={{ slug: post.slug }}
-                  className="glass-panel rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+                  className="glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
                 >
                   <p className="text-[0.65rem] uppercase tracking-wide text-primary">
                     {post.category}
                   </p>
-                  <p className="mt-2 text-sm font-medium leading-snug">{post.title}</p>
+                  <p className="mt-3 text-lg font-medium leading-snug">{post.title}</p>
                 </Link>
               ))}
             </div>
@@ -188,5 +190,26 @@ function BlogDetail() {
 
       <CtaBand title="Enjoyed the read? Let's build your next campaign." />
     </>
+  );
+}
+
+function BlogContent({ content }: { content: string }) {
+  const blocks = content.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
+
+  return (
+    <div className="space-y-8">
+      {blocks.map((block, index) => {
+        if (block.startsWith("## ")) {
+          return <h2 key={index} className="pt-5 font-display text-3xl leading-tight tracking-[-0.03em] text-foreground sm:text-4xl">{block.slice(3)}</h2>;
+        }
+        if (block.startsWith("# ")) {
+          return <h2 key={index} className="pt-5 font-display text-4xl leading-tight tracking-[-0.03em] text-foreground sm:text-5xl">{block.slice(2)}</h2>;
+        }
+        if (block.startsWith("> ")) {
+          return <blockquote key={index} className="border-l-2 border-primary pl-6 font-display text-2xl leading-snug text-foreground sm:text-3xl">{block.slice(2)}</blockquote>;
+        }
+        return <p key={index}>{block}</p>;
+      })}
+    </div>
   );
 }
