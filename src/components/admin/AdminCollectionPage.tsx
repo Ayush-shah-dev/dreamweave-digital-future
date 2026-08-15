@@ -1,6 +1,6 @@
 import { AlertCircle, FileText, MessageSquare, Plus, Search, Star, Trash2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { deleteBlog, deleteTestimonial, listBlogs, listTestimonials } from "@/lib/admin-content";
 import type { Blog, Testimonial } from "@/integrations/supabase/types";
+import { getIncludeDemoTestimonials, setIncludeDemoTestimonials } from "@/lib/testimonial-display";
 
 type Collection = "blogs" | "testimonials";
 type StatusFilter = "all" | "draft" | "published";
@@ -42,7 +43,12 @@ export function AdminCollectionPage({ collection }: { collection: Collection }) 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
   const [pendingDelete, setPendingDelete] = useState<{ id: string; label: string } | null>(null);
+  const [includeDemoTestimonials, setIncludeDemoTestimonialsState] = useState(false);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!isBlogs) setIncludeDemoTestimonialsState(getIncludeDemoTestimonials());
+  }, [isBlogs]);
 
   const query = useQuery({
     queryKey: [collection],
@@ -98,6 +104,30 @@ export function AdminCollectionPage({ collection }: { collection: Collection }) 
       </div>
 
       <div className="mt-8 rounded-2xl border border-black/8 bg-white/65 p-5 shadow-sm">
+        {!isBlogs && (
+          <div className="mb-5 flex flex-col gap-4 rounded-xl border border-primary/15 bg-primary/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-medium text-black/80">Show demo testimonials on the homepage</p>
+              <p className="mt-1 max-w-2xl text-xs leading-5 text-black/50">
+                Keep the built-in examples alongside published admin testimonials while you build your content library.
+              </p>
+            </div>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={includeDemoTestimonials}
+              onClick={() => {
+                const next = !includeDemoTestimonials;
+                setIncludeDemoTestimonialsState(next);
+                setIncludeDemoTestimonials(next);
+                toast.success(next ? "Demo testimonials added to the homepage." : "Homepage now shows admin testimonials only.");
+              }}
+              className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${includeDemoTestimonials ? "bg-primary" : "bg-black/20"}`}
+            >
+              <span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${includeDemoTestimonials ? "translate-x-6" : "translate-x-1"}`} />
+            </button>
+          </div>
+        )}
         <div className="flex flex-col gap-3 sm:flex-row">
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/35" />

@@ -29,7 +29,6 @@ export const NAV_LINKS = [
   { to: "/brands", label: "Brands" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/case-studies", label: "Case Studies" },
-  { to: "/testimonials", label: "Testimonials" },
   { to: "/blog", label: "Blog" },
   { to: "/contact", label: "Contact" },
 ] as const;

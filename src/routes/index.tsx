@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
@@ -42,6 +42,7 @@ import {
 } from "@/lib/site";
 import { isSupabaseConfigured } from "@/integrations/supabase/client";
 import { listFeaturedTestimonials } from "@/lib/public-content";
+import { DEMO_TESTIMONIALS_EVENT, getIncludeDemoTestimonials } from "@/lib/testimonial-display";
 import founderImg from "@/assets/founder.jpg";
 import studioImg from "@/assets/studio.jpg";
 
@@ -85,13 +86,25 @@ function Home() {
     enabled: isSupabaseConfigured,
     staleTime: 5 * 60 * 1000,
   });
+  const [includeDemoTestimonials, setIncludeDemoTestimonials] = useState(false);
+
+  useEffect(() => {
+    const syncPreference = () => setIncludeDemoTestimonials(getIncludeDemoTestimonials());
+    syncPreference();
+    window.addEventListener(DEMO_TESTIMONIALS_EVENT, syncPreference);
+    return () => window.removeEventListener(DEMO_TESTIMONIALS_EVENT, syncPreference);
+  }, []);
+
+  const adminTestimonials = featuredTestimonials.data?.map((t) => ({
+    quote: t.quote,
+    name: t.name,
+    org: [t.designation, t.company].filter(Boolean).join(", "),
+  })) ?? [];
   const testimonials =
-    featuredTestimonials.data && featuredTestimonials.data.length > 0
-      ? featuredTestimonials.data.map((t) => ({
-          quote: t.quote,
-          name: t.name,
-          org: [t.designation, t.company].filter(Boolean).join(", "),
-        }))
+    adminTestimonials.length > 0
+      ? includeDemoTestimonials
+        ? [...adminTestimonials, ...TESTIMONIALS]
+        : adminTestimonials
       : TESTIMONIALS;
 
   const heroRef = useRef<HTMLElement>(null);
