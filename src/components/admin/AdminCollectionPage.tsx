@@ -13,6 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Switch } from "@/components/ui/switch";
 import { deleteBlog, deleteTestimonial, listBlogs, listTestimonials } from "@/lib/admin-content";
 import type { Blog, Testimonial } from "@/integrations/supabase/types";
 import { getIncludeDemoTestimonials, setIncludeDemoTestimonials } from "@/lib/testimonial-display";
@@ -112,20 +113,20 @@ export function AdminCollectionPage({ collection }: { collection: Collection }) 
                 Keep the built-in examples alongside published admin testimonials while you build your content library.
               </p>
             </div>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={includeDemoTestimonials}
-              onClick={() => {
-                const next = !includeDemoTestimonials;
-                setIncludeDemoTestimonialsState(next);
-                setIncludeDemoTestimonials(next);
-                toast.success(next ? "Demo testimonials added to the homepage." : "Homepage now shows admin testimonials only.");
+            <Switch
+              checked={includeDemoTestimonials}
+              aria-label="Show demo testimonials on the homepage"
+              onCheckedChange={(checked) => {
+                setIncludeDemoTestimonialsState(checked);
+                setIncludeDemoTestimonials(checked);
+                toast.success(
+                  checked
+                    ? "Demo testimonials added to the homepage."
+                    : "Homepage now shows admin testimonials only.",
+                );
               }}
-              className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${includeDemoTestimonials ? "bg-primary" : "bg-black/20"}`}
-            >
-              <span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${includeDemoTestimonials ? "translate-x-6" : "translate-x-1"}`} />
-            </button>
+              className="h-7 w-12 [&>span]:h-5 [&>span]:w-5 data-[state=checked]:[&>span]:translate-x-5"
+            />
           </div>
         )}
         <div className="flex flex-col gap-3 sm:flex-row">

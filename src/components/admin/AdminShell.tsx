@@ -111,6 +111,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
         <div className="mt-auto space-y-2 border-t border-white/10 pt-5">
           <Link
             to="/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-white/60 hover:bg-white/8 hover:text-white"
           >
             <ExternalLink className="h-4 w-4" />
