@@ -4,7 +4,7 @@ import type {} from "@tanstack/react-start";
 // Public origin of the deployed site, without a trailing slash. Override per build with
 // VITE_SITE_URL (see .env.example) — the value is inlined at build time, which is what the
 // prerenderer bakes into the generated sitemap.xml.
-const BASE_URL = (import.meta.env["VITE_SITE_URL"] ?? "https://dreamweavedigital.in").replace(
+const BASE_URL = (import.meta.env["VITE_SITE_URL"] ?? "https://dreamweavedigitalinfluencers.com").replace(
   /\/+$/,
   "",
 );

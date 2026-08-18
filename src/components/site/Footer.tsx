@@ -22,13 +22,13 @@ export function Footer() {
           </p>
           <div className="mt-6 flex gap-3">
             {[
-              { icon: Instagram, label: "Instagram" },
-              { icon: Youtube, label: "YouTube" },
-              { icon: Linkedin, label: "LinkedIn" },
-            ].map(({ icon: Icon, label }) => (
+              { icon: Instagram, label: "Instagram", href: BRAND.social.instagram },
+              { icon: Youtube, label: "YouTube", href: BRAND.social.youtube },
+              { icon: Linkedin, label: "LinkedIn", href: BRAND.social.linkedin },
+            ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
-                href={`https://www.${label.toLowerCase()}.com/`}
+                href={href}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${BRAND.name} on ${label}`}

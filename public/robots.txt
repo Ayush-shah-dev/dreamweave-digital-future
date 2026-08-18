@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dreamweavedigital.in/sitemap.xml
+Sitemap: https://dreamweavedigitalinfluencers.com/sitemap.xml

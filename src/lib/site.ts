@@ -6,7 +6,12 @@ export const BRAND = {
   city: "Gandhinagar",
   phoneDisplay: "+91 63541 18698",
   phoneRaw: "916354118698",
-  email: "hello@dreamweavedigital.in",
+  email: "hello@dreamweavedigitalinfluencers.com",
+  social: {
+    instagram: "https://www.instagram.com/dreamweave_digital_",
+    youtube: "https://www.youtube.com/",
+    linkedin: "https://www.linkedin.com/",
+  },
 };
 
 export const WHATSAPP_MESSAGE = `Hi Dreamweave Digital 👋
