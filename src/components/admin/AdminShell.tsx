@@ -2,6 +2,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   ExternalLink,
   FileText,
+  Inbox,
   LayoutDashboard,
   LogOut,
   MessageSquare,
@@ -15,6 +16,7 @@ import { toast } from "sonner";
 
 const navigation = [
   { label: "Overview", to: "/admin", icon: LayoutDashboard },
+  { label: "Leads", to: "/admin/leads", icon: Inbox },
   { label: "Blogs", to: "/admin/blogs", icon: FileText },
   { label: "Testimonials", to: "/admin/testimonials", icon: MessageSquare },
 ];
@@ -31,14 +33,15 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
-  const { loading, user, isAdmin, signOut } = useAdminAuth();
+  const { loading, user, isAdmin, devBypass, signOut } = useAdminAuth();
 
   // Redirects happen in an effect, never during render — otherwise this ships baked into the
   // prerendered HTML as a permanent redirect and can trigger React's "update during render"
   // warning. While loading (including the always-loading prerender pass), fall through to the
-  // loading screen below instead.
+  // loading screen below instead. devBypass (VITE_ADMIN_DEV_BYPASS, dev-only) skips the
+  // redirect outright — see useAdminAuth.tsx for what it does and doesn't do.
   useEffect(() => {
-    if (loading) return;
+    if (loading || devBypass) return;
     if (!user) {
       navigate({ to: "/admin/login" });
       return;
@@ -47,9 +50,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
       toast.error("Access denied. This account doesn't have admin access.");
       navigate({ to: "/admin/login" });
     }
-  }, [loading, user, isAdmin, navigate]);
+  }, [loading, user, isAdmin, devBypass, navigate]);
 
-  if (loading || !user || !isAdmin) {
+  if (loading || (!devBypass && (!user || !isAdmin))) {
     return <LoadingScreen />;
   }
 
@@ -145,14 +148,19 @@ export function AdminShell({ children }: { children: ReactNode }) {
           >
             <Menu className="h-5 w-5" />
           </button>
-          <div className="hidden lg:block" />
-          <div className="flex items-center gap-3 text-right">
+          {devBypass && (
+            <span className="hidden items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-800 lg:inline-flex">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              Dev bypass — no real session, admin-only data reads back empty
+            </span>
+          )}
+          <div className={cn("flex items-center gap-3 text-right", !devBypass && "lg:ml-auto")}>
             <div>
-              <p className="text-sm font-medium">Admin account</p>
-              <p className="text-xs text-black/45">{user.email}</p>
+              <p className="text-sm font-medium">{devBypass ? "Dev bypass" : "Admin account"}</p>
+              <p className="text-xs text-black/45">{user?.email ?? "No session"}</p>
             </div>
             <div className="grid h-9 w-9 place-items-center rounded-full bg-[#1b1815] text-sm text-primary">
-              {(user.email ?? "A").charAt(0).toUpperCase()}
+              {(user?.email ?? "D").charAt(0).toUpperCase()}
             </div>
           </div>
         </header>

@@ -7,6 +7,8 @@ import { CheckCircle2 } from "lucide-react";
 import { PageHero, Section, breadcrumbSchema } from "@/components/site/Sections";
 import { WhatsAppCta } from "@/components/site/Cta";
 import { waLink } from "@/lib/site";
+import { logToGoogleSheet } from "@/lib/google-sheets";
+import { submitLead } from "@/lib/leads";
 
 export const Route = createFileRoute("/apply")({
   component: Apply,
@@ -45,7 +47,7 @@ const labels: Record<string, string> = {
   mediakit: "Media kit link (optional)",
 };
 
-const schema = z.object({
+export const schema = z.object({
   name: z.string().trim().min(2).max(100),
   city: z.string().trim().min(2).max(80),
   whatsapp: z.string().trim().min(8).max(20),
@@ -129,6 +131,8 @@ function Apply() {
                       return;
                     }
                     setDone(true);
+                    logToGoogleSheet("Apply", parsed.data);
+                    submitLead("apply", parsed.data);
                     toast.success("Application submitted");
                     window.open(
                       waLink(

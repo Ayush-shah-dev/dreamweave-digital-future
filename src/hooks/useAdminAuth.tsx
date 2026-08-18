@@ -2,6 +2,20 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import type { Session, User } from "@supabase/supabase-js";
 import { isSupabaseConfigured, supabase } from "@/integrations/supabase/client";
 
+// Skips the /admin/login redirect entirely so the dashboard shell renders without a real
+// Supabase session. Same safety gate as AdminLogin's DEMO_MODE_ENABLED: `import.meta.env.DEV`
+// is only ever true under `vite dev`, never in a production build, so this can't ship live no
+// matter how the env var is set.
+//
+// This does NOT bypass Postgres Row Level Security — RLS is enforced server-side and has no
+// client-side switch. With this on but no real signed-in admin, every admin-only table
+// (form_submissions, newsletter_subscribers, draft blogs/testimonials) reads back as empty —
+// RLS silently filters rows a caller can't see rather than erroring — not because there's no
+// data, but because there's no real session to prove admin access. Use this to check the UI
+// renders; sign in with a real admin account (supabase/README.md steps 6-8) to see real data.
+const DEV_BYPASS_ENABLED =
+  import.meta.env.DEV && import.meta.env["VITE_ADMIN_DEV_BYPASS"] === "true";
+
 interface SignInResult {
   /** Human-readable error, or null on success. */
   error: string | null;
@@ -16,6 +30,8 @@ interface AdminAuthContextValue {
   isAdmin: boolean;
   /** False when VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY are missing. */
   isConfigured: boolean;
+  /** True when VITE_ADMIN_DEV_BYPASS unlocked the dashboard without a real session — see above. */
+  devBypass: boolean;
   signIn: (email: string, password: string) => Promise<SignInResult>;
   signOut: () => Promise<void>;
   requestPasswordReset: (email: string) => Promise<{ error: string | null }>;
@@ -36,12 +52,20 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   // If Supabase isn't configured there is nothing to wait for — resolve immediately so the
-  // login page can show a configuration error instead of spinning forever.
-  const [loading, setLoading] = useState(isSupabaseConfigured);
+  // login page can show a configuration error instead of spinning forever. Same for the dev
+  // bypass: nothing to wait on, it never touches Supabase auth.
+  const [loading, setLoading] = useState(isSupabaseConfigured && !DEV_BYPASS_ENABLED);
   const mountedRef = useRef(true);
 
   useEffect(() => {
     mountedRef.current = true;
+
+    if (DEV_BYPASS_ENABLED) {
+      setLoading(false);
+      return () => {
+        mountedRef.current = false;
+      };
+    }
 
     if (!supabase) {
       setLoading(false);
@@ -150,8 +174,9 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
         user,
         session,
         loading,
-        isAdmin,
+        isAdmin: DEV_BYPASS_ENABLED || isAdmin,
         isConfigured: isSupabaseConfigured,
+        devBypass: DEV_BYPASS_ENABLED,
         signIn,
         signOut,
         requestPasswordReset,

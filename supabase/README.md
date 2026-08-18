@@ -36,7 +36,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 VITE_ADMIN_DEMO_MODE=false
 ```
 
-## 5. Apply the migration
+## 5. Apply the migrations
 
 Using the Supabase CLI (recommended):
 
@@ -45,11 +45,15 @@ supabase link --project-ref your-project-ref
 supabase db push
 ```
 
-Or paste the contents of
-[`supabase/migrations/0001_admin_content.sql`](migrations/0001_admin_content.sql) into the
-Supabase Studio SQL editor and run it. This creates `admin_users`, `blogs`, `testimonials`,
-the `is_admin()` function, all RLS policies, and the `blog-images` / `testimonial-images`
-storage buckets.
+Or paste the contents of each file, in order, into the Supabase Studio SQL editor and run it:
+
+1. [`supabase/migrations/0001_admin_content.sql`](migrations/0001_admin_content.sql) —
+   creates `admin_users`, `blogs`, `testimonials`, the `is_admin()` function, all RLS
+   policies, and the `blog-images` / `testimonial-images` storage buckets.
+2. [`supabase/migrations/0002_leads.sql`](migrations/0002_leads.sql) — creates
+   `form_submissions` (Contact / Apply as Creator / Book Campaign leads) and
+   `newsletter_subscribers`, both admin-only to read, publicly insertable so the site's
+   forms can write to them without a session. Shown on the admin dashboard's Leads page.
 
 ## 6. Create the admin user in Supabase Authentication
 

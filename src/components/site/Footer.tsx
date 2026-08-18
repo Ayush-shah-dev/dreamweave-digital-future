@@ -3,6 +3,7 @@ import { Instagram, Youtube, Linkedin, MapPin, Mail, Phone } from "lucide-react"
 import { useState } from "react";
 import { toast } from "sonner";
 import { BRAND, NAV_LINKS, SERVICES } from "@/lib/site";
+import { subscribeNewsletter } from "@/lib/leads";
 import { Logo } from "./Nav";
 import { WhatsAppCta } from "./Cta";
 import { MeshBackdrop } from "./Motion";
@@ -100,6 +101,7 @@ export function Footer() {
                 toast.error("Enter a valid email address");
                 return;
               }
+              subscribeNewsletter(email);
               setEmail("");
               toast.success("You're on the list. Creator marketing notes, monthly.");
             }}

@@ -6,6 +6,8 @@ import { CheckCircle2 } from "lucide-react";
 import { PageHero, Section, breadcrumbSchema } from "@/components/site/Sections";
 import { WhatsAppCta } from "@/components/site/Cta";
 import { waLink } from "@/lib/site";
+import { logToGoogleSheet } from "@/lib/google-sheets";
+import { submitLead } from "@/lib/leads";
 
 export const Route = createFileRoute("/book-campaign")({
   component: BookCampaign,
@@ -100,6 +102,8 @@ function BookCampaign() {
                       return;
                     }
                     setDone(true);
+                    logToGoogleSheet("BookCampaign", form as Record<string, string>);
+                    submitLead("book_campaign", form as Record<string, string>);
                     toast.success("Brief submitted");
                     window.open(
                       waLink(

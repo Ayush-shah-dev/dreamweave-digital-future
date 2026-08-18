@@ -1,18 +1,21 @@
-import { AlertCircle, FileText, MessageSquare, Plus, Sparkles, Star } from "lucide-react";
+import { AlertCircle, FileText, Inbox, MessageSquare, Plus, Sparkles, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { listBlogs, listTestimonials } from "@/lib/admin-content";
+import { FORM_TYPE_LABELS, listLeads, summarizeLead } from "@/lib/leads";
 
 export function AdminOverview() {
   const [greeting, setGreeting] = useState("Welcome back");
   const blogsQuery = useQuery({ queryKey: ["blogs"], queryFn: listBlogs });
   const testimonialsQuery = useQuery({ queryKey: ["testimonials"], queryFn: listTestimonials });
+  const leadsQuery = useQuery({ queryKey: ["leads"], queryFn: listLeads });
 
   const blogs = blogsQuery.data ?? [];
   const testimonials = testimonialsQuery.data ?? [];
-  const isLoading = blogsQuery.isLoading || testimonialsQuery.isLoading;
-  const isError = blogsQuery.isError || testimonialsQuery.isError;
+  const leads = leadsQuery.data ?? [];
+  const isLoading = blogsQuery.isLoading || testimonialsQuery.isLoading || leadsQuery.isLoading;
+  const isError = blogsQuery.isError || testimonialsQuery.isError || leadsQuery.isError;
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -20,6 +23,12 @@ export function AdminOverview() {
   }, []);
 
   const stats = [
+    {
+      label: "New leads",
+      value: leads.filter((l) => l.status === "new").length,
+      icon: Inbox,
+      note: `${leads.length} total`,
+    },
     {
       label: "Published blogs",
       value: blogs.filter((b) => b.status === "published").length,
@@ -75,7 +84,7 @@ export function AdminOverview() {
         </div>
       ) : (
         <>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map(({ label, value, icon: Icon, note }) => (
               <div
                 key={label}
@@ -178,6 +187,48 @@ export function AdminOverview() {
               </div>
             </section>
           </div>
+
+          <section className="mt-5 rounded-2xl border border-black/8 bg-white/65 p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-primary">Inbound</p>
+                <h2 className="mt-2 font-display text-2xl">Recent leads</h2>
+              </div>
+              <Link to="/admin/leads" className="text-xs text-black/50 hover:text-primary">
+                View all
+              </Link>
+            </div>
+            <div className="mt-8 space-y-2">
+              {isLoading &&
+                [0, 1].map((i) => <div key={i} className="h-16 animate-pulse rounded-xl bg-black/5" />)}
+              {!isLoading && leads.length === 0 && (
+                <div className="py-6 text-center text-sm text-black/45">
+                  <Sparkles className="mx-auto h-5 w-5 text-primary" />
+                  <p className="mt-3">No leads yet — they'll show up here as forms are submitted.</p>
+                </div>
+              )}
+              {leads.slice(0, 4).map((lead) => {
+                const { title, subtitle } = summarizeLead(lead.form_type, lead.data);
+                return (
+                  <div
+                    key={lead.id}
+                    className="flex items-center justify-between rounded-xl border border-black/8 bg-white/60 p-4"
+                  >
+                    <span>
+                      <span className="block text-sm font-medium">{title}</span>
+                      <span className="mt-1 block text-xs text-black/45">
+                        {FORM_TYPE_LABELS[lead.form_type]}
+                        {subtitle ? ` · ${subtitle}` : ""}
+                      </span>
+                    </span>
+                    <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-primary">
+                      {lead.status}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
         </>
       )}
     </div>

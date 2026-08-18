@@ -1,8 +1,11 @@
-// Hand-maintained to match supabase/migrations/0001_admin_content.sql.
-// If the schema changes, update this file and the migration together.
+// Hand-maintained to match supabase/migrations/0001_admin_content.sql and
+// supabase/migrations/0002_leads.sql. If the schema changes, update this file and the
+// migration together.
 
 export type BlogStatus = "draft" | "published";
 export type TestimonialStatus = "draft" | "published";
+export type FormSubmissionType = "contact" | "apply" | "book_campaign";
+export type FormSubmissionStatus = "new" | "contacted" | "archived";
 
 export interface Database {
   public: {
@@ -124,6 +127,51 @@ export interface Database {
         };
         Relationships: [];
       };
+      form_submissions: {
+        Row: {
+          id: string;
+          form_type: FormSubmissionType;
+          data: Record<string, string>;
+          status: FormSubmissionStatus;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          form_type: FormSubmissionType;
+          data?: Record<string, string>;
+          status?: FormSubmissionStatus;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          form_type?: FormSubmissionType;
+          data?: Record<string, string>;
+          status?: FormSubmissionStatus;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      newsletter_subscribers: {
+        Row: {
+          id: string;
+          email: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -146,3 +194,11 @@ export type TestimonialInsert = Database["public"]["Tables"]["testimonials"]["In
 export type TestimonialUpdate = Database["public"]["Tables"]["testimonials"]["Update"];
 
 export type AdminUser = Database["public"]["Tables"]["admin_users"]["Row"];
+
+export type FormSubmission = Database["public"]["Tables"]["form_submissions"]["Row"];
+export type FormSubmissionInsert = Database["public"]["Tables"]["form_submissions"]["Insert"];
+export type FormSubmissionUpdate = Database["public"]["Tables"]["form_submissions"]["Update"];
+
+export type NewsletterSubscriber = Database["public"]["Tables"]["newsletter_subscribers"]["Row"];
+export type NewsletterSubscriberInsert =
+  Database["public"]["Tables"]["newsletter_subscribers"]["Insert"];

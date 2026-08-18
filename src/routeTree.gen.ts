@@ -25,6 +25,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBlogsRouteImport } from './routes/admin.blogs'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
@@ -116,6 +117,11 @@ const AdminBlogsRoute = AdminBlogsRouteImport.update({
   path: '/blogs',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -183,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/blogs': typeof AdminBlogsRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -208,6 +215,7 @@ export interface FileRoutesByTo {
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -236,6 +244,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/blogs': typeof AdminBlogsRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
@@ -266,6 +275,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/admin/blogs'
+    | '/admin/leads'
     | '/admin/login'
     | '/admin/testimonials'
     | '/blog/$slug'
@@ -291,6 +301,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/services'
     | '/sitemap.xml'
+    | '/admin/leads'
     | '/admin/login'
     | '/blog/$slug'
     | '/admin'
@@ -318,6 +329,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/admin/blogs'
+    | '/admin/leads'
     | '/admin/login'
     | '/admin/testimonials'
     | '/blog/$slug'
@@ -462,6 +474,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -568,6 +587,7 @@ const AdminTestimonialsRouteWithChildren =
 
 interface AdminRouteChildren {
   AdminBlogsRoute: typeof AdminBlogsRouteWithChildren
+  AdminLeadsRoute: typeof AdminLeadsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminTestimonialsRoute: typeof AdminTestimonialsRouteWithChildren
   AdminIndexRoute: typeof AdminIndexRoute
@@ -575,6 +595,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBlogsRoute: AdminBlogsRouteWithChildren,
+  AdminLeadsRoute: AdminLeadsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminTestimonialsRoute: AdminTestimonialsRouteWithChildren,
   AdminIndexRoute: AdminIndexRoute,
