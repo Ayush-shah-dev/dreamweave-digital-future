@@ -416,27 +416,15 @@ function Home() {
         >
           {CAMPAIGNS.map((c) => (
             <article
-              key={c.title}
-              className="glass-panel group relative h-64 w-[20rem] shrink-0 overflow-hidden rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 hover:border-primary/45 sm:w-[24rem]"
+              key={c.brand}
+              className="glass-panel group relative flex h-64 w-[20rem] shrink-0 flex-col justify-between overflow-hidden rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 hover:border-primary/45 sm:w-[24rem]"
             >
               <div className="bg-ember absolute inset-x-0 -bottom-24 h-40 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-40" />
-              <p className="relative text-xs tracking-[0.2em] text-primary uppercase">
-                {c.category}
-              </p>
-              <h3 className="relative mt-3 text-2xl">{c.title}</h3>
-              <p className="relative text-sm text-muted-foreground">{c.brand}</p>
-              <dl className="absolute right-6 bottom-6 left-6 mt-8 grid grid-cols-3 gap-2 text-center">
-                {[
-                  ["Views", c.views],
-                  ["Creators", `${c.creators}`],
-                  ["Platform", c.platform.split(" ")[0]!],
-                ].map(([k, v]) => (
-                  <div key={k} className="rounded-xl bg-white/5 py-2.5">
-                    <dd className="font-display text-sm">{v}</dd>
-                    <dt className="text-[0.6rem] text-muted-foreground uppercase">{k}</dt>
-                  </div>
-                ))}
-              </dl>
+              <div className="relative">
+                <p className="text-xs tracking-[0.2em] text-primary uppercase">{c.category}</p>
+                <h3 className="font-display mt-4 text-3xl leading-none sm:text-4xl">{c.brand}</h3>
+              </div>
+              <p className="relative line-clamp-2 max-w-[20rem] text-sm leading-relaxed text-muted-foreground">{c.description}</p>
             </article>
           ))}
         </Marquee>

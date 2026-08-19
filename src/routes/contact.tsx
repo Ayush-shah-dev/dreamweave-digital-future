@@ -7,6 +7,8 @@ import { CtaBand, PageHero, Section, SectionHeading, breadcrumbSchema } from "@/
 import { Reveal } from "@/components/site/Motion";
 import { WhatsAppCta } from "@/components/site/Cta";
 import { BRAND, waLink } from "@/lib/site";
+import { logToGoogleSheet } from "@/lib/google-sheets";
+import { submitLead } from "@/lib/leads";
 
 export const Route = createFileRoute("/contact")({
   component: Contact,
@@ -28,7 +30,7 @@ export const Route = createFileRoute("/contact")({
   }),
 });
 
-const schema = z.object({
+export const schema = z.object({
   name: z.string().trim().min(2, "Enter your name").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().min(8, "Enter a valid phone number").max(20),
@@ -107,6 +109,8 @@ function Contact() {
                   return;
                 }
                 setErrors({});
+                logToGoogleSheet("Contact", result.data);
+                submitLead("contact", result.data);
                 toast.success("Brief received — opening WhatsApp to continue.");
                 window.open(
                   waLink(

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CtaBand, PageHero, Section, SectionHeading, breadcrumbSchema } from "@/components/site/Sections";
 import { Counter, Reveal, SectionLabel } from "@/components/site/Motion";
 import { Cta } from "@/components/site/Cta";
+import { BrandLogoGrid } from "@/components/site/BrandLogoGrid";
 import { PROCESS } from "@/lib/site";
 
 export const Route = createFileRoute("/brands")({
@@ -57,6 +58,8 @@ function Brands() {
         title="Creator campaigns measured like media, crafted like film."
         copy="We plan for CPM, watch-time and conversions — then shoot it well enough that your team wants to run it as an ad."
       />
+
+      <BrandLogoGrid />
 
       <Section>
         <SectionHeading label="ROI" title="What our brand partners typically see." />

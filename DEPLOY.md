@@ -13,7 +13,7 @@ npm run deploy:hostinger
 
 That runs the production build and packs it into **`dist/dreamweave-site.zip`**.
 
-If the live domain is not `dreamweavedigital.in`, set the origin first so `sitemap.xml` contains the
+If the live domain is not `dreamweavedigitalinfluencers.com`, set the origin first so `sitemap.xml` contains the
 right absolute URLs (copy `.env.example` to `.env` and edit it, or set the variable inline):
 
 ```sh

@@ -117,12 +117,15 @@ export const CREATORS = [
 ];
 
 export const CAMPAIGNS = [
-  { title: "Monsoon Drop", brand: "Kaya Label", views: "4.2M", creators: 18, platform: "Instagram", category: "Fashion" },
-  { title: "First Sip", brand: "Brew & Bloom", views: "2.8M", creators: 11, platform: "Instagram + YouTube", category: "F&B" },
-  { title: "Glow Protocol", brand: "Auré Skin", views: "6.1M", creators: 26, platform: "Instagram", category: "Beauty" },
-  { title: "Built in Gujarat", brand: "Nira Motors", views: "3.4M", creators: 9, platform: "Instagram + Reels Ads", category: "Auto" },
-  { title: "Festive House", brand: "Shreeji Home", views: "1.9M", creators: 14, platform: "Instagram", category: "Home" },
-  { title: "Campus Run", brand: "Volt Sneakers", views: "5.3M", creators: 22, platform: "Instagram + Snap", category: "Footwear" },
+  { brand: "Decathlon", category: "Sports & active living", description: "A sports retailer focused on making sport accessible to everyone." },
+  { brand: "Fashion Factory", category: "Value fashion", description: "A Reliance Retail fashion format offering branded fashion at value prices." },
+  { brand: "Hyundai", category: "Automotive", description: "A technology-led mobility brand guided by the idea of progress for humanity." },
+  { brand: "Lenskart", category: "Eyewear technology", description: "A technology-led eyewear company building accessible eyewear experiences." },
+  { brand: "MasterChef", category: "Food & culture", description: "A global food format that discovers and nurtures cooking talent." },
+  { brand: "Poojara Telecom", category: "Mobile retail", description: "A Gujarat-based mobile and electronics retailer serving everyday tech needs." },
+  { brand: "TVS Motor Company", category: "Sustainable mobility", description: "A two- and three-wheeler manufacturer championing sustainable mobility." },
+  { brand: "V-Mart", category: "Value fashion retail", description: "A family fashion retailer serving value-conscious communities across India." },
+  { brand: "vivo", category: "Consumer technology", description: "A technology company creating design-driven smart devices and intelligent services." },
 ];
 
 export const TESTIMONIALS = [
@@ -252,13 +255,52 @@ export const CASE_STUDIES = [
 ];
 
 export const PORTFOLIO = [
-  { title: "Monsoon Drop", brand: "Kaya Label", views: "4.2M", creators: 18, platform: "Instagram", tall: true },
-  { title: "Glow Protocol", brand: "Auré Skin", views: "6.1M", creators: 26, platform: "Instagram" },
-  { title: "First Sip", brand: "Brew & Bloom", views: "2.8M", creators: 11, platform: "YouTube" },
-  { title: "Built in Gujarat", brand: "Nira Motors", views: "3.4M", creators: 9, platform: "Reels Ads", tall: true },
-  { title: "Campus Run", brand: "Volt Sneakers", views: "5.3M", creators: 22, platform: "Instagram" },
-  { title: "Festive House", brand: "Shreeji Home", views: "1.9M", creators: 14, platform: "Instagram" },
-  { title: "Night Kitchen", brand: "Tandoor Co.", views: "2.2M", creators: 8, platform: "Instagram", tall: true },
-  { title: "Skyline Series", brand: "Aarohi Realty", views: "1.1M", creators: 5, platform: "YouTube" },
-  { title: "Desk Setup", brand: "Volt Tech", views: "3.9M", creators: 12, platform: "Instagram" },
+  {
+    brand: "Decathlon",
+    category: "Sports & active living",
+    description: "A sports retailer focused on making sport accessible to everyone.",
+    tall: true,
+  },
+  {
+    brand: "Fashion Factory",
+    category: "Value fashion",
+    description: "A Reliance Retail fashion format offering branded fashion at value prices.",
+  },
+  {
+    brand: "Hyundai",
+    category: "Automotive",
+    description: "A technology-led mobility brand guided by the idea of progress for humanity.",
+  },
+  {
+    brand: "Lenskart",
+    category: "Eyewear technology",
+    description: "A technology-led eyewear company building accessible eyewear experiences.",
+    tall: true,
+  },
+  {
+    brand: "MasterChef",
+    category: "Food & culture",
+    description: "A global food format that discovers and nurtures cooking talent.",
+  },
+  {
+    brand: "Poojara Telecom",
+    category: "Mobile retail",
+    description: "A Gujarat-based mobile and electronics retailer serving everyday tech needs.",
+  },
+  {
+    brand: "TVS Motor Company",
+    category: "Sustainable mobility",
+    description: "A two- and three-wheeler manufacturer championing sustainable mobility.",
+    tall: true,
+  },
+  {
+    brand: "V-Mart",
+    category: "Value fashion retail",
+    description: "A family fashion retailer serving value-conscious communities across India.",
+  },
+  {
+    brand: "vivo",
+    category: "Consumer technology",
+    description: "A technology company creating design-driven smart devices and intelligent services.",
+  },
 ];
