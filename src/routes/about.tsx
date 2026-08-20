@@ -40,7 +40,7 @@ const TIMELINE = [
   { year: "2022", title: "First creator network", copy: "Built our first 50-creator roster across Gujarat categories." },
   { year: "2023", title: "Full-stack campaigns", copy: "Added strategy, contracting, publishing and reporting in-house." },
   { year: "2024", title: "The studio", copy: "Opened our own studio with lighting, drone and post-production." },
-  { year: "2026", title: "Gujarat's creator engine", copy: "500+ shoots, 250+ creators, 50+ brands, 20M+ views." },
+  { year: "2026", title: "India's creator engine", copy: "500+ shoots, 10,000+ creators, 50+ brands, 20M+ views." },
 ];
 
 function About() {

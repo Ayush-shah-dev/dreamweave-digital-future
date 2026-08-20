@@ -3,7 +3,6 @@ import { CtaBand, PageHero, Section, SectionHeading, breadcrumbSchema } from "@/
 import { Counter, Reveal, SectionLabel } from "@/components/site/Motion";
 import { Cta } from "@/components/site/Cta";
 import { BrandLogoGrid } from "@/components/site/BrandLogoGrid";
-import { PROCESS } from "@/lib/site";
 
 export const Route = createFileRoute("/brands")({
   component: Brands,
@@ -25,7 +24,51 @@ export const Route = createFileRoute("/brands")({
   }),
 });
 
-const INDUSTRIES = ["Fashion & Apparel", "Beauty & Skincare", "Food & Beverage", "Automotive", "Real Estate", "Health & Fitness", "Consumer Tech", "Home & Interiors", "Education", "Jewellery", "Travel & Hospitality", "D2C Startups"];
+const WHY_CHOOSE_US = [
+  "10,000+ Verified Influencers Across India",
+  "Every Niche Covered",
+  "Campaign Strategy & Execution",
+  "Dedicated Campaign Manager",
+  "Transparent Pricing",
+  "Fast Turnaround Time",
+  "Performance Reports",
+  "Pan India Campaign Management",
+];
+
+const INDUSTRIES_WE_SERVE = [
+  "Real Estate",
+  "Education",
+  "Healthcare",
+  "Food & Restaurants",
+  "Beauty & Skincare",
+  "Fashion",
+  "Jewellery",
+  "Finance",
+  "Automobile",
+  "Travel",
+  "Fitness",
+  "Technology",
+  "E-commerce",
+  "Hospitality",
+];
+
+const WHY_INFLUENCER_MARKETING = [
+  "Build Trust Faster",
+  "Reach Target Audience",
+  "Increase Brand Awareness",
+  "Generate Quality Leads",
+  "Boost Sales",
+  "Better ROI than Traditional Advertising",
+];
+
+const BRAND_PROCESS = [
+  { step: "01", title: "Understand Your Brand", copy: "We learn your goals, audience, category and growth targets." },
+  { step: "02", title: "Campaign Planning", copy: "We shape the strategy, creative direction, timeline and deliverables." },
+  { step: "03", title: "Influencer Shortlisting", copy: "We shortlist creators based on fit, audience quality and engagement." },
+  { step: "04", title: "Content Creation", copy: "We develop platform-ready content with our creators and production team." },
+  { step: "05", title: "Campaign Execution", copy: "We manage approvals, publishing and campaign coordination end to end." },
+  { step: "06", title: "Reporting & Analytics", copy: "We track performance, share learnings and identify the next growth opportunity." },
+];
 
 const PRICING = [
   {
@@ -82,10 +125,26 @@ function Brands() {
         </div>
       </Section>
 
+      <Section>
+        <SectionHeading label="Why Choose Us" title="A campaign partner built around your growth." />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {WHY_CHOOSE_US.map((item, i) => (
+            <Reveal key={item} delay={(i % 4) * 0.06}>
+              <div className="glass-panel flex h-full min-h-32 items-end rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:border-primary/40">
+                <div>
+                  <span className="text-ember font-display text-2xl">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="mt-5 text-base leading-snug">{item}</h3>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       <Section className="bg-white/[0.015]">
-        <SectionHeading label="Campaign Process" title="Seven stages. One accountable team." />
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {PROCESS.map((p, i) => (
+        <SectionHeading label="Our Process" title="Six steps. One accountable team." />
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {BRAND_PROCESS.map((p, i) => (
             <Reveal key={p.step} delay={(i % 4) * 0.06}>
               <div className="glass-panel h-full rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:border-primary/40">
                 <span className="font-display text-3xl text-white/12">{p.step}</span>
@@ -98,13 +157,31 @@ function Brands() {
       </Section>
 
       <Section>
-        <SectionHeading label="Industries" title="Categories we run campaigns in every month." />
+        <SectionHeading label="Industries We Serve" title="Creator campaigns for every category that matters." />
         <div className="mt-10 flex flex-wrap gap-3">
-          {INDUSTRIES.map((ind, i) => (
+          {INDUSTRIES_WE_SERVE.map((ind, i) => (
             <Reveal key={ind} delay={(i % 6) * 0.04}>
               <span className="glass-panel inline-block rounded-full px-5 py-2.5 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary">
                 {ind}
               </span>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="bg-white/[0.015]">
+        <SectionHeading label="Why Influencer Marketing?" title="Attention people trust, action they remember." />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {WHY_INFLUENCER_MARKETING.map((item, i) => (
+            <Reveal key={item} delay={(i % 3) * 0.07}>
+              <div className="glass-panel flex min-h-36 items-center rounded-2xl p-7 transition-all duration-500 hover:-translate-y-2 hover:border-primary/40">
+                <div className="flex items-center gap-4">
+                  <span className="bg-ember grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-sm text-primary-foreground">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-base leading-snug">{item}</h3>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>

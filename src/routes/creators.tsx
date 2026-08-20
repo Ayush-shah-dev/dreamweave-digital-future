@@ -19,7 +19,7 @@ export const Route = createFileRoute("/creators")({
       {
         name: "description",
         content:
-          "Join 250+ verified creators working with Dreamweave Digital — paid brand collaborations, clear briefs, in-house shoots and payouts within 15 days.",
+          "Join 10,000+ verified creators working with Dreamweave Digital — paid brand collaborations, clear briefs, in-house shoots and payouts within 15 days.",
       },
       { property: "og:title", content: "For Creators — Paid Brand Deals with Dreamweave Digital" },
       { property: "og:description", content: "Benefits, payout process, creator gallery and success stories." },
@@ -56,7 +56,7 @@ function Creators() {
         crumb="Creators"
         label="For Creators"
         title="Turn your audience into a monthly income."
-        copy="Dreamweave Digital works with 250+ creators across India — matching them with brands that pay well, brief clearly and come back for more."
+        copy="Dreamweave Digital works with 10,000+ creators across India — matching them with brands that pay well, brief clearly and come back for more."
       />
 
       <Section>

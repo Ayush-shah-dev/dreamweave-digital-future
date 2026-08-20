@@ -137,16 +137,16 @@ function Home() {
             <SectionLabel>{BRAND.tagline}</SectionLabel>
           </Reveal>
           <h1 className="mt-7 text-[2.6rem] leading-[1.02] font-semibold sm:text-7xl">
-            <WordReveal text="Where Brands Meet" />
+            <WordReveal text="India's trusted influencer marketing agency" />
             <br />
             <span className="text-ember">
-              <WordReveal text="India's Top Creators." />
+              <WordReveal text="for brands that want real growth" />
             </span>
           </h1>
           <Reveal delay={0.25}>
             <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Create cinematic campaigns, viral reels, creator collaborations and premium social
-              storytelling that actually converts.
+              Dreamweave Digital helps brands connect with the right influencers across India to
+              create impactful campaigns that increase brand awareness, engagement and sales.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Cta to="/book-campaign">
@@ -190,7 +190,7 @@ function Home() {
                   year: "2021",
                   text: "Started as a two-person reel production unit in Gandhinagar.",
                 },
-                { year: "2023", text: "Crossed 250 verified creators across Gujarat and India." },
+                { year: "2023", text: "Built a 10,000+ verified creator network across India." },
                 {
                   year: "2024",
                   text: "Built our in-house studio, drone and post-production team.",
@@ -236,7 +236,7 @@ function Home() {
       <Section className="overflow-hidden">
         <SectionHeading
           align="center"
-          label={`Mit Prajapati ${BRAND.founder}`}
+          label="Founder & Creative Director"
           title="The director behind 500+ campaign shoots."
           copy="Camera, lights, drone, creators, fashion sets, BTS, studio — every frame we ship passes through his eye."
         />
@@ -282,12 +282,12 @@ function Home() {
       <Section id="services">
         <SectionHeading
           label="Services"
-          title="Six panels. One end-to-end creator engine."
+          title="Eleven services. One end-to-end creator engine."
           copy="Hover a panel to open it. Every service is delivered by the same in-house team, so nothing gets lost between strategy and publish."
         />
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => {
-            const Icon = SERVICE_ICONS[i]!;
+            const Icon = SERVICE_ICONS[i % SERVICE_ICONS.length]!;
             return (
               <Reveal key={s.slug} delay={(i % 3) * 0.08}>
                 <TiltCard className="h-full">
@@ -324,7 +324,7 @@ function Home() {
           <SectionHeading
             align="center"
             label="Creator Universe"
-            title="250+ verified creators orbiting one network."
+            title="10,000+ verified creators orbiting one network."
             copy="Fashion, food, beauty, travel, tech, fitness, lifestyle and auto — vetted for engagement quality, not follower vanity."
           />
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -502,7 +502,7 @@ function Home() {
                 <SectionLabel>For Creators</SectionLabel>
                 <h2 className="mt-5 text-3xl sm:text-4xl">Get paid brand deals every month.</h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  Join 250+ verified creators receiving briefs that fit their category, signed
+                  Join 10,000+ verified creators receiving briefs that fit their category, signed
                   scopes before the shoot and payouts within 15 days.
                 </p>
               </div>
@@ -546,14 +546,84 @@ function Home() {
 
 function ProcessRail() {
   const [active, setActive] = useState(0);
+  const [isRailVisible, setIsRailVisible] = useState(false);
+  const [isPointerInside, setIsPointerInside] = useState(false);
+  const [edgeDirection, setEdgeDirection] = useState<-1 | 0 | 1>(0);
+  const railRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsRailVisible(entry.isIntersecting),
+      { threshold: 0.25 },
+    );
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail || !isRailVisible || isPointerInside) return;
+
+    const timer = window.setInterval(() => {
+      const firstCard = rail.firstElementChild as HTMLElement | null;
+      const cardStep = (firstCard?.offsetWidth ?? 272) + 16;
+      const maxScroll = rail.scrollWidth - rail.clientWidth;
+      const nextScroll = rail.scrollLeft + cardStep;
+
+      rail.scrollTo({
+        left: nextScroll >= maxScroll - 4 ? 0 : nextScroll,
+        behavior: "smooth",
+      });
+    }, 3500);
+
+    return () => window.clearInterval(timer);
+  }, [isRailVisible, isPointerInside]);
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail || edgeDirection === 0) return;
+
+    const timer = window.setInterval(() => {
+      rail.scrollLeft += edgeDirection * 8;
+    }, 16);
+
+    return () => window.clearInterval(timer);
+  }, [edgeDirection]);
+
+  const updateActiveCard = () => {
+    const rail = railRef.current;
+    const firstCard = rail?.firstElementChild as HTMLElement | null;
+    if (!rail || !firstCard) return;
+    setActive(Math.round(rail.scrollLeft / (firstCard.offsetWidth + 16)));
+  };
+
   return (
     <Section className="overflow-hidden">
       <SectionHeading
         label="Our Process"
         title="Seven steps from inquiry to analytics."
-        copy="Drag or scroll the rail. Every stage has an owner, a deadline and a deliverable."
+        copy="The process advances automatically. Move to either edge, drag or scroll to browse every stage."
       />
-      <div className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div
+        ref={railRef}
+        onMouseEnter={() => setIsPointerInside(true)}
+        onMouseLeave={() => {
+          setIsPointerInside(false);
+          setEdgeDirection(0);
+        }}
+        onMouseMove={(event) => {
+          if (event.buttons !== 0) return;
+          const bounds = event.currentTarget.getBoundingClientRect();
+          const position = (event.clientX - bounds.left) / bounds.width;
+          setEdgeDirection(position > 0.82 ? 1 : position < 0.18 ? -1 : 0);
+        }}
+        onScroll={updateActiveCard}
+        aria-label="Our campaign process steps"
+        className="mt-12 flex snap-x snap-mandatory cursor-ew-resize gap-4 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {PROCESS.map((p, i) => (
           <button
             key={p.step}

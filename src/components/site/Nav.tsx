@@ -63,6 +63,7 @@ export function Nav() {
             <li key={l.to}>
               <Link
                 to={l.to}
+                reloadDocument
                 className={cn(
                   "relative rounded-full px-3 py-2 text-[0.83rem] text-muted-foreground transition-colors hover:text-foreground",
                   pathname === l.to && "text-foreground",
@@ -122,6 +123,7 @@ export function Nav() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
+                    reloadDocument
                     className="block rounded-xl px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
                   >
                     {l.label}

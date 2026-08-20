@@ -25,7 +25,7 @@ export const Route = createFileRoute("/services")({
       { property: "og:title", content: "Creator Marketing Services — Dreamweave Digital" },
       {
         property: "og:description",
-        content: "Six services, one in-house team: discovery, campaigns, shoots, editing, strategy and analytics.",
+        content: "Eleven services, one in-house team: discovery, campaigns, shoots, editing, strategy, analytics and creator growth.",
       },
       { property: "og:url", content: "/services" },
       { property: "og:type", content: "website" },
@@ -45,6 +45,11 @@ const BENEFITS: Record<string, string[]> = {
   editing: ["Higher watch-time", "Hook variants for testing", "Platform-native cuts"],
   "social-strategy": ["Compounding content system", "Category positioning", "Funnel design"],
   analytics: ["Cost efficiency clarity", "Creator-level performance", "Confident scaling"],
+  "ugc-content-creation": ["Authentic creator voice", "Ad-ready content", "Multi-channel formats"],
+  "celebrity-macro-influencer-campaigns": ["High-reach talent access", "Negotiated partnerships", "Maximum visibility"],
+  "social-media-management": ["Consistent publishing", "Community response", "Growth-led content"],
+  "product-photoshoot-video-production": ["Production-ready sets", "Commercial quality", "Multi-format deliverables"],
+  "talent-management": ["Creator positioning", "Premium brand access", "Long-term deal support"],
 };
 
 function Services() {

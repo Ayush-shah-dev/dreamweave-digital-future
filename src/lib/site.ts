@@ -39,7 +39,7 @@ export const NAV_LINKS = [
 ] as const;
 
 export const STATS = [
-  { value: 250, suffix: "+", label: "Verified Creators" },
+  { value: 10000, suffix: "+", label: "Verified Creators" },
   { value: 500, suffix: "+", label: "Campaign Shoots" },
   { value: 20, suffix: "M+", label: "Views Generated" },
   { value: 50, suffix: "+", label: "Brands" },
@@ -93,6 +93,36 @@ export const SERVICES = [
       "Reach, watch-time, saves, CPM, CPV and attributed conversions in one live dashboard — with next-cycle recommendations.",
     deliverables: ["Live dashboard", "Creator-level performance", "Cost efficiency benchmarks", "Scale recommendations"],
   },
+  {
+    slug: "ugc-content-creation",
+    title: "UGC Content Creation",
+    blurb: "Authentic creator-generated content for paid ads, websites, Amazon listings, and social media.",
+    deliverables: ["Creator-led concepts", "Paid ad variations", "Amazon-ready assets", "Social media formats"],
+  },
+  {
+    slug: "celebrity-macro-influencer-campaigns",
+    title: "Celebrity & Macro Influencer Campaigns",
+    blurb: "Partner with top creators and celebrities for maximum brand visibility.",
+    deliverables: ["Talent shortlisting", "Celebrity outreach", "Campaign negotiations", "Multi-channel launch planning"],
+  },
+  {
+    slug: "social-media-management",
+    title: "Social Media Management",
+    blurb: "Content planning, creative design, reels, growth strategy, and community management.",
+    deliverables: ["Monthly content calendar", "Creative design system", "Reels production", "Community management"],
+  },
+  {
+    slug: "product-photoshoot-video-production",
+    title: "Product Photoshoot & Video Production",
+    blurb: "Professional product shoots, lifestyle videos, commercial reels, and brand films.",
+    deliverables: ["Product photography", "Lifestyle videos", "Commercial reels", "Brand films"],
+  },
+  {
+    slug: "talent-management",
+    title: "Talent Management",
+    blurb: "Helping creators grow while connecting them with premium brand collaborations.",
+    deliverables: ["Creator positioning", "Brand deal sourcing", "Rate negotiation", "Long-term partnership planning"],
+  },
 ];
 
 export const PROCESS = [
@@ -139,28 +169,20 @@ export const TESTIMONIALS = [
 
 export const FAQS = [
   {
-    q: "Which cities do you operate in?",
-    a: "Our studio and head office are in Gandhinagar, and we shoot regularly across Ahmedabad, Surat, Vadodara and Rajkot. We run creator campaigns pan-India remotely.",
+    q: "How long does a campaign take?",
+    a: "Most campaigns are executed within 7–15 days.",
   },
   {
-    q: "What does an influencer marketing campaign cost?",
-    a: "Most brand campaigns start around ₹1.5L for a focused creator burst and scale to ₹15L+ for multi-city productions with 20+ creators. Budget is set by creator tier, deliverable volume and production scope.",
+    q: "Do you provide influencers across India?",
+    a: "Yes, we work with creators from all major cities and niches across India.",
   },
   {
-    q: "Do you handle content shoots as well as creator seeding?",
-    a: "Yes. We are a full-stack creator marketing agency — discovery, contracting, shoot production, editing, publishing and reporting all sit with one team.",
+    q: "Can you manage everything?",
+    a: "Yes. Strategy, influencer sourcing, negotiations, content approvals, publishing, and reporting.",
   },
   {
-    q: "How do you pick creators for a brand?",
-    a: "We screen for audience overlap, authenticity, watch-time and past brand performance in your category — not follower count alone. Every shortlist ships with the data behind it.",
-  },
-  {
-    q: "How quickly can a campaign go live?",
-    a: "A standard reel campaign moves from brief to first publish in 10–14 days. Rush timelines are possible with our in-house production crew.",
-  },
-  {
-    q: "How do creators get paid?",
-    a: "Creators are paid within 15 days of approved deliverables, directly to their bank account, with a signed scope before the shoot.",
+    q: "What is the minimum campaign budget?",
+    a: "Campaigns can be customized based on your marketing goals and budget.",
   },
 ];
 
