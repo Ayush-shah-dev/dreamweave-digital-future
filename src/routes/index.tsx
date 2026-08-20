@@ -35,10 +35,13 @@ import {
   CAMPAIGNS,
   CREATORS,
   FAQS,
+  INDUSTRIES,
   PROCESS,
   SERVICES,
   STATS,
   TESTIMONIALS,
+  WHY_CHOOSE_US,
+  WHY_INFLUENCER_MARKETING,
 } from "@/lib/site";
 import { isSupabaseConfigured } from "@/integrations/supabase/client";
 import { listFeaturedTestimonials } from "@/lib/public-content";
@@ -50,24 +53,24 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Creator Marketing Agency in Gujarat | Dreamweave Digital" },
+      { title: "Dreamweave Digital | Influencer Marketing Agency in India" },
       {
         name: "description",
         content:
-          "Dreamweave Digital is a creator marketing agency in Gandhinagar connecting brands with India's top creators — influencer marketing, content shoots and reel production across Gujarat.",
+          "Dreamweave Digital is a leading influencer marketing agency helping brands connect with India's top creators. End-to-end influencer campaigns, UGC content, talent management and social media marketing.",
       },
       {
         property: "og:title",
-        content: "Where Brands Meet India's Top Creators | Dreamweave Digital",
+        content: "Dreamweave Digital | Influencer Marketing Agency in India",
       },
       {
         property: "og:description",
         content:
-          "Cinematic campaigns, viral reels and creator collaborations from Gujarat's leading creator marketing agency.",
+          "End-to-end influencer campaigns, UGC content, celebrity collaborations and social media marketing for brands across India.",
       },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Dreamweave Digital — Creator Marketing Agency" },
+      { name: "twitter:title", content: "Dreamweave Digital | Influencer Marketing Agency in India" },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(faqSchema(FAQS)) }],
@@ -136,24 +139,24 @@ function Home() {
           <Reveal y={12}>
             <SectionLabel>{BRAND.tagline}</SectionLabel>
           </Reveal>
-          <h1 className="mt-7 text-[2.6rem] leading-[1.02] font-semibold sm:text-7xl">
-            <WordReveal text="Where Brands Meet" />
+          <h1 className="mt-7 text-[2.1rem] leading-[1.06] font-semibold sm:text-6xl">
+            <WordReveal text="India's Trusted Influencer Marketing Agency" />
             <br />
             <span className="text-ember">
-              <WordReveal text="India's Top Creators." />
+              <WordReveal text="for Brands That Want Real Growth" />
             </span>
           </h1>
           <Reveal delay={0.25}>
             <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Create cinematic campaigns, viral reels, creator collaborations and premium social
-              storytelling that actually converts.
+              Dreamweave Digital helps brands connect with the right influencers across India to
+              create impactful campaigns that increase brand awareness, engagement, and sales.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Cta to="/book-campaign">
-                Start Your Campaign <ArrowRight className="h-4 w-4" />
+              <Cta to="/contact">
+                Get Free Consultation <ArrowRight className="h-4 w-4" />
               </Cta>
-              <Cta to="/apply" variant="ghost">
-                Become a Creator
+              <Cta to="/book-campaign" variant="ghost">
+                Start Your Campaign
               </Cta>
             </div>
           </Reveal>
@@ -180,24 +183,27 @@ function Home() {
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionHeading
-              label="Who We Are"
-              title="A creator-first agency built inside a production studio."
-              copy="Dreamweave Digital is a creator marketing agency headquartered in Gandhinagar. We sit between brands and India's most watched creators — running discovery, contracting, shoots, edits, publishing and reporting under one roof."
+              label="About Dreamweave Digital"
+              title="Influencer marketing that delivers measurable business results."
+              copy="At Dreamweave Digital, we believe influencer marketing should deliver measurable business results — not just views. We specialize in connecting brands with carefully selected creators across every niche, from nano influencers to celebrities."
             />
             <div className="mt-10 space-y-6 border-l border-border pl-6">
               {[
                 {
-                  year: "2021",
-                  text: "Started as a two-person reel production unit in Gandhinagar.",
-                },
-                { year: "2023", text: "Crossed 250 verified creators across Gujarat and India." },
-                {
-                  year: "2024",
-                  text: "Built our in-house studio, drone and post-production team.",
+                  year: "Strategy",
+                  text: "We plan campaigns around your category, audience and business goal.",
                 },
                 {
-                  year: "2026",
-                  text: "500+ campaign shoots and 20M+ views generated for 50+ brands.",
+                  year: "Creator Selection",
+                  text: "Carefully selected creators across every niche — nano influencers to celebrities.",
+                },
+                {
+                  year: "Execution",
+                  text: "Content approval, publishing and campaign management handled by our team.",
+                },
+                {
+                  year: "Performance",
+                  text: "Reporting and performance tracking so you see exactly what the campaign returned.",
                 },
               ].map((t, i) => (
                 <Reveal key={t.year} delay={i * 0.08}>
@@ -209,6 +215,12 @@ function Home() {
                 </Reveal>
               ))}
             </div>
+            <Reveal delay={0.3}>
+              <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+                Whether you're a startup or an established brand, we create campaigns that build
+                trust and drive real business growth.
+              </p>
+            </Reveal>
           </div>
           <Reveal delay={0.15}>
             <TiltCard className="relative">
@@ -232,27 +244,18 @@ function Home() {
         </div>
       </Section>
 
-      {/* Mit BHAI */}
+      {/* INDUSTRIES */}
       <Section className="overflow-hidden">
         <SectionHeading
           align="center"
-          label={`Mit Prajapati ${BRAND.founder}`}
-          title="The director behind 500+ campaign shoots."
-          copy="Camera, lights, drone, creators, fashion sets, BTS, studio — every frame we ship passes through his eye."
+          label="Industries We Serve"
+          title="Campaigns built for every category."
+          copy="From real estate and education to beauty, fashion, finance and e-commerce — we match creators to the audience your category actually needs."
         />
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            "Camera & Lenses",
-            "Lighting Design",
-            "Drone Cinematography",
-            "Creator Direction",
-            "Fashion Shoots",
-            "Behind The Scenes",
-            "In-House Studio",
-            "Post & Grade",
-          ].map((item, i) => (
+          {INDUSTRIES.map((item, i) => (
             <Reveal key={item} delay={(i % 4) * 0.07}>
-              <div className="glass-panel group flex h-36 flex-col justify-between rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
+              <div className="glass-panel group flex h-32 flex-col justify-between rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
                 <span className="font-display text-2xl text-white/15 transition-colors group-hover:text-primary/60">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -275,15 +278,36 @@ function Home() {
         </Reveal>
       </Section>
 
+      {/* WHY INFLUENCER MARKETING */}
+      <Section>
+        <SectionHeading
+          align="center"
+          label="Why Influencer Marketing?"
+          title="Creator-led marketing outperforms traditional advertising."
+        />
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {WHY_INFLUENCER_MARKETING.map((item, i) => (
+            <Reveal key={item} delay={(i % 3) * 0.07}>
+              <div className="glass-panel flex h-full items-center gap-4 rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
+                <span className="bg-ember grid h-10 w-10 shrink-0 place-items-center rounded-xl font-display text-sm text-primary-foreground">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="font-display text-lg">{item}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       {/* PROCESS */}
       <ProcessRail />
 
       {/* SERVICES */}
       <Section id="services">
         <SectionHeading
-          label="Services"
-          title="Six panels. One end-to-end creator engine."
-          copy="Hover a panel to open it. Every service is delivered by the same in-house team, so nothing gets lost between strategy and publish."
+          label="Our Services"
+          title="Everything your brand needs to run creator campaigns."
+          copy="Influencer marketing, UGC, celebrity collaborations, social media management, production and talent management — delivered by one team."
         />
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => {
@@ -368,34 +392,31 @@ function Home() {
       {/* WHY BRANDS CHOOSE US — bento */}
       <Section>
         <SectionHeading
-          label="Why Brands Choose Us"
-          title="Production quality of an agency. Speed of a creator."
+          label="Why Choose Us"
+          title="Pan-India campaign management, run end to end."
         />
         <div className="mt-14 grid auto-rows-[minmax(11rem,auto)] gap-4 md:grid-cols-3">
           <Reveal className="md:col-span-2 md:row-span-2">
             <div className="glass-panel flex h-full flex-col justify-between rounded-[1.6rem] p-8">
-              <SectionLabel>Reach</SectionLabel>
+              <SectionLabel>Influencer Network</SectionLabel>
               <div>
                 <p className="text-ember font-display text-6xl font-semibold sm:text-8xl">
-                  <Counter to={20} suffix="M+" />
+                  <Counter to={10000} suffix="+" />
                 </p>
                 <p className="mt-3 max-w-md text-muted-foreground">
-                  Organic views generated across creator campaigns in the last 24 months — before a
-                  rupee of paid amplification.
+                  Verified influencers across India, covering every niche — from nano creators to
+                  celebrities.
                 </p>
               </div>
             </div>
           </Reveal>
-          {[
-            { big: "48h", label: "Creator shortlist turnaround" },
-            { big: "4.6x", label: "Median campaign ROAS" },
-            { big: "100%", label: "In-house shoot & post" },
-            { big: "15d", label: "Creator payout cycle" },
-          ].map((b, i) => (
-            <Reveal key={b.label} delay={i * 0.07}>
+          {WHY_CHOOSE_US.slice(1).map((label, i) => (
+            <Reveal key={label} delay={i * 0.07}>
               <div className="glass-panel group flex h-full flex-col justify-between rounded-[1.6rem] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/45">
-                <p className="font-display text-4xl group-hover:text-ember sm:text-5xl">{b.big}</p>
-                <p className="mt-3 text-sm text-muted-foreground">{b.label}</p>
+                <p className="font-display text-3xl text-white/15 transition-colors group-hover:text-primary/60">
+                  {String(i + 2).padStart(2, "0")}
+                </p>
+                <p className="mt-3 font-display text-lg">{label}</p>
               </div>
             </Reveal>
           ))}
@@ -406,8 +427,8 @@ function Home() {
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
-            label="Featured Campaigns"
-            title="Campaigns that behaved like content, not ads."
+            label="Trusted By Brands"
+            title="Brands that grew with creator-led campaigns."
           />
         </div>
         <Marquee
@@ -479,7 +500,10 @@ function Home() {
                   key={t.quote}
                   className="glass-panel w-[22rem] shrink-0 rounded-3xl p-7 transition-colors duration-500 hover:border-primary/40 sm:w-[28rem]"
                 >
-                  <blockquote className="text-sm leading-relaxed text-foreground/90">
+                  <p aria-label="5 out of 5 stars" className="text-sm text-primary">
+                    ★★★★★
+                  </p>
+                  <blockquote className="mt-4 text-sm leading-relaxed text-foreground/90">
                     "{t.quote}"
                   </blockquote>
                   <figcaption className="mt-5 text-xs text-muted-foreground">

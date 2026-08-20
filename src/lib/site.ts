@@ -39,71 +39,104 @@ export const NAV_LINKS = [
 ] as const;
 
 export const STATS = [
-  { value: 250, suffix: "+", label: "Verified Creators" },
-  { value: 500, suffix: "+", label: "Campaign Shoots" },
+  { value: 10000, suffix: "+", label: "Verified Influencers" },
+  { value: 500, suffix: "+", label: "Campaigns Delivered" },
   { value: 20, suffix: "M+", label: "Views Generated" },
-  { value: 50, suffix: "+", label: "Brands" },
+  { value: 50, suffix: "+", label: "Brands Served" },
 ];
 
 export const SERVICES = [
   {
-    slug: "influencer-discovery",
-    title: "Influencer Discovery",
+    slug: "influencer-marketing",
+    title: "Influencer Marketing",
     blurb:
-      "Data-backed creator matchmaking across Gujarat and India — vetted for audience quality, not vanity follower counts.",
+      "End-to-end influencer campaigns for product launches, brand awareness, app promotions, real estate, education, FMCG, fashion, beauty, finance and more.",
     deliverables: [
-      "Audience authenticity audit",
-      "Category & city shortlists",
-      "Rate negotiation",
-      "Contracting & compliance",
+      "Campaign strategy & goals",
+      "Influencer shortlisting",
+      "Negotiation & contracting",
+      "Publishing & performance reports",
     ],
   },
   {
-    slug: "campaign-management",
-    title: "Campaign Management",
+    slug: "ugc-content-creation",
+    title: "UGC Content Creation",
     blurb:
-      "End-to-end orchestration: briefs, timelines, approvals, posting calendars and creator communication handled by one team.",
-    deliverables: ["Creative brief", "Production calendar", "Approval workflow", "Live campaign war-room"],
+      "Authentic creator-generated content for paid ads, websites, Amazon listings and social media.",
+    deliverables: ["Creator briefs", "Ad-ready UGC hooks", "Listing & website assets", "Raw + edited masters"],
   },
   {
-    slug: "content-shoots",
-    title: "Content Shoots",
-    blurb:
-      "Cinema-grade production in Ahmedabad and Gandhinagar — studio, on-location, drone, product tabletop and lifestyle.",
-    deliverables: ["Pre-production & storyboard", "Crew, lights, gimbal, drone", "Studio or location", "Raw + graded masters"],
+    slug: "celebrity-macro-campaigns",
+    title: "Celebrity & Macro Influencer Campaigns",
+    blurb: "Partner with top creators and celebrities for maximum brand visibility.",
+    deliverables: ["Celebrity outreach", "Rate & rights negotiation", "Shoot coordination", "Visibility reporting"],
   },
   {
-    slug: "editing",
-    title: "Editing & Post",
-    blurb:
-      "Retention-engineered reel edits with hook-first pacing, sound design, colour grade and platform-native formats.",
-    deliverables: ["Hook variants", "Colour grading", "Sound design & mix", "9:16, 1:1 and 16:9 masters"],
+    slug: "social-media-management",
+    title: "Social Media Management",
+    blurb: "Content planning, creative design, reels, growth strategy and community management.",
+    deliverables: ["Monthly content calendar", "Creative & reel production", "Growth strategy", "Community management"],
   },
   {
-    slug: "social-strategy",
-    title: "Social Strategy",
-    blurb:
-      "Positioning, content pillars and a publishing rhythm that compounds — built around what your category actually rewards.",
-    deliverables: ["Category & competitor teardown", "Content pillars", "90-day calendar", "Creator-led funnel design"],
+    slug: "product-photoshoot-video",
+    title: "Product Photoshoot & Video Production",
+    blurb: "Professional product shoots, lifestyle videos, commercial reels and brand films.",
+    deliverables: ["Pre-production & storyboard", "Studio or location shoot", "Lifestyle & tabletop stills", "Edited brand films"],
   },
   {
-    slug: "analytics",
-    title: "Analytics & Reporting",
-    blurb:
-      "Reach, watch-time, saves, CPM, CPV and attributed conversions in one live dashboard — with next-cycle recommendations.",
-    deliverables: ["Live dashboard", "Creator-level performance", "Cost efficiency benchmarks", "Scale recommendations"],
+    slug: "talent-management",
+    title: "Talent Management",
+    blurb: "Helping creators grow while connecting them with premium brand collaborations.",
+    deliverables: ["Creator positioning", "Brand deal sourcing", "Rate cards & contracts", "Payment follow-through"],
   },
 ];
 
-export const PROCESS = [
-  { step: "01", title: "Brand Inquiry", copy: "A 20-minute call to map goals, category, budget and timeline." },
-  { step: "02", title: "Strategy", copy: "Positioning, hooks, content pillars and channel plan." },
-  { step: "03", title: "Creator Matching", copy: "Shortlists vetted for audience overlap and engagement quality." },
-  { step: "04", title: "Shoot", copy: "Studio, location, drone and product production with our in-house crew." },
-  { step: "05", title: "Editing", copy: "Retention-first edits, hook variants, grade and sound design." },
-  { step: "06", title: "Publishing", copy: "Coordinated go-live across creator and brand handles." },
-  { step: "07", title: "Analytics", copy: "Performance readout, learnings and the next scale plan." },
+export const INDUSTRIES = [
+  "Real Estate",
+  "Education",
+  "Healthcare",
+  "Food & Restaurants",
+  "Beauty & Skincare",
+  "Fashion",
+  "Jewellery",
+  "Finance",
+  "Automobile",
+  "Travel",
+  "Fitness",
+  "Technology",
+  "E-commerce",
+  "Hospitality",
 ];
+
+export const WHY_CHOOSE_US = [
+  "10,000+ Verified Influencers Across India",
+  "Every Niche Covered",
+  "Campaign Strategy & Execution",
+  "Dedicated Campaign Manager",
+  "Transparent Pricing",
+  "Fast Turnaround Time",
+  "Performance Reports",
+  "Pan India Campaign Management",
+];
+
+export const WHY_INFLUENCER_MARKETING = [
+  "Build Trust Faster",
+  "Reach Target Audience",
+  "Increase Brand Awareness",
+  "Generate Quality Leads",
+  "Boost Sales",
+  "Better ROI than Traditional Advertising",
+];
+
+export const PROCESS = [
+  { step: "01", title: "Understand Your Brand", copy: "A discovery call to map your category, goals, audience and budget." },
+  { step: "02", title: "Campaign Planning", copy: "Strategy, messaging, deliverables and a clear campaign timeline." },
+  { step: "03", title: "Influencer Shortlisting", copy: "Creators selected on audience fit, authenticity and past performance." },
+  { step: "04", title: "Content Creation", copy: "Briefs, shoots and edits — approved by you before anything goes live." },
+  { step: "05", title: "Campaign Execution", copy: "Coordinated publishing across creator and brand handles, pan India." },
+  { step: "06", title: "Reporting & Analytics", copy: "Reach, engagement and conversion readouts with next-cycle recommendations." },
+];
+
 
 export const CREATORS = [
   { name: "Aarohi M.", category: "Fashion", city: "Ahmedabad", followers: "412K", er: "6.8%", brands: 24 },
@@ -139,28 +172,20 @@ export const TESTIMONIALS = [
 
 export const FAQS = [
   {
-    q: "Which cities do you operate in?",
-    a: "Our studio and head office are in Gandhinagar, and we shoot regularly across Ahmedabad, Surat, Vadodara and Rajkot. We run creator campaigns pan-India remotely.",
+    q: "How long does a campaign take?",
+    a: "Most campaigns are executed within 7–15 days, from brief to live posts.",
   },
   {
-    q: "What does an influencer marketing campaign cost?",
-    a: "Most brand campaigns start around ₹1.5L for a focused creator burst and scale to ₹15L+ for multi-city productions with 20+ creators. Budget is set by creator tier, deliverable volume and production scope.",
+    q: "Do you provide influencers across India?",
+    a: "Yes, we work with creators from all major cities and niches across India.",
   },
   {
-    q: "Do you handle content shoots as well as creator seeding?",
-    a: "Yes. We are a full-stack creator marketing agency — discovery, contracting, shoot production, editing, publishing and reporting all sit with one team.",
+    q: "Can you manage everything?",
+    a: "Yes. Strategy, influencer sourcing, negotiations, content approvals, publishing and reporting.",
   },
   {
-    q: "How do you pick creators for a brand?",
-    a: "We screen for audience overlap, authenticity, watch-time and past brand performance in your category — not follower count alone. Every shortlist ships with the data behind it.",
-  },
-  {
-    q: "How quickly can a campaign go live?",
-    a: "A standard reel campaign moves from brief to first publish in 10–14 days. Rush timelines are possible with our in-house production crew.",
-  },
-  {
-    q: "How do creators get paid?",
-    a: "Creators are paid within 15 days of approved deliverables, directly to their bank account, with a signed scope before the shoot.",
+    q: "What is the minimum campaign budget?",
+    a: "Campaigns can be customized based on your marketing goals and budget.",
   },
 ];
 
