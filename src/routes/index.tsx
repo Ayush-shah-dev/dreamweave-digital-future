@@ -139,24 +139,24 @@ function Home() {
           <Reveal y={12}>
             <SectionLabel>{BRAND.tagline}</SectionLabel>
           </Reveal>
-          <h1 className="mt-7 text-[2.6rem] leading-[1.02] font-semibold sm:text-7xl">
-            <WordReveal text="Where Brands Meet" />
+          <h1 className="mt-7 text-[2.1rem] leading-[1.06] font-semibold sm:text-6xl">
+            <WordReveal text="India's Trusted Influencer Marketing Agency" />
             <br />
             <span className="text-ember">
-              <WordReveal text="India's Top Creators." />
+              <WordReveal text="for Brands That Want Real Growth" />
             </span>
           </h1>
           <Reveal delay={0.25}>
             <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Create cinematic campaigns, viral reels, creator collaborations and premium social
-              storytelling that actually converts.
+              Dreamweave Digital helps brands connect with the right influencers across India to
+              create impactful campaigns that increase brand awareness, engagement, and sales.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Cta to="/book-campaign">
-                Start Your Campaign <ArrowRight className="h-4 w-4" />
+              <Cta to="/contact">
+                Get Free Consultation <ArrowRight className="h-4 w-4" />
               </Cta>
-              <Cta to="/apply" variant="ghost">
-                Become a Creator
+              <Cta to="/book-campaign" variant="ghost">
+                Start Your Campaign
               </Cta>
             </div>
           </Reveal>
