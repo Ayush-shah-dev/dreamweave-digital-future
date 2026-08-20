@@ -53,24 +53,24 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Creator Marketing Agency in Gujarat | Dreamweave Digital" },
+      { title: "Dreamweave Digital | Influencer Marketing Agency in India" },
       {
         name: "description",
         content:
-          "Dreamweave Digital is a creator marketing agency in Gandhinagar connecting brands with India's top creators — influencer marketing, content shoots and reel production across Gujarat.",
+          "Dreamweave Digital is a leading influencer marketing agency helping brands connect with India's top creators. End-to-end influencer campaigns, UGC content, talent management and social media marketing.",
       },
       {
         property: "og:title",
-        content: "Where Brands Meet India's Top Creators | Dreamweave Digital",
+        content: "Dreamweave Digital | Influencer Marketing Agency in India",
       },
       {
         property: "og:description",
         content:
-          "Cinematic campaigns, viral reels and creator collaborations from Gujarat's leading creator marketing agency.",
+          "End-to-end influencer campaigns, UGC content, celebrity collaborations and social media marketing for brands across India.",
       },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Dreamweave Digital — Creator Marketing Agency" },
+      { name: "twitter:title", content: "Dreamweave Digital | Influencer Marketing Agency in India" },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(faqSchema(FAQS)) }],
