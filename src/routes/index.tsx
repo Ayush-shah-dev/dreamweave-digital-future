@@ -244,27 +244,18 @@ function Home() {
         </div>
       </Section>
 
-      {/* Mit BHAI */}
+      {/* INDUSTRIES */}
       <Section className="overflow-hidden">
         <SectionHeading
           align="center"
-          label={`Mit Prajapati ${BRAND.founder}`}
-          title="The director behind 500+ campaign shoots."
-          copy="Camera, lights, drone, creators, fashion sets, BTS, studio — every frame we ship passes through his eye."
+          label="Industries We Serve"
+          title="Campaigns built for every category."
+          copy="From real estate and education to beauty, fashion, finance and e-commerce — we match creators to the audience your category actually needs."
         />
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            "Camera & Lenses",
-            "Lighting Design",
-            "Drone Cinematography",
-            "Creator Direction",
-            "Fashion Shoots",
-            "Behind The Scenes",
-            "In-House Studio",
-            "Post & Grade",
-          ].map((item, i) => (
+          {INDUSTRIES.map((item, i) => (
             <Reveal key={item} delay={(i % 4) * 0.07}>
-              <div className="glass-panel group flex h-36 flex-col justify-between rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
+              <div className="glass-panel group flex h-32 flex-col justify-between rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
                 <span className="font-display text-2xl text-white/15 transition-colors group-hover:text-primary/60">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -285,6 +276,27 @@ function Home() {
             />
           </div>
         </Reveal>
+      </Section>
+
+      {/* WHY INFLUENCER MARKETING */}
+      <Section>
+        <SectionHeading
+          align="center"
+          label="Why Influencer Marketing?"
+          title="Creator-led marketing outperforms traditional advertising."
+        />
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {WHY_INFLUENCER_MARKETING.map((item, i) => (
+            <Reveal key={item} delay={(i % 3) * 0.07}>
+              <div className="glass-panel flex h-full items-center gap-4 rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/40">
+                <span className="bg-ember grid h-10 w-10 shrink-0 place-items-center rounded-xl font-display text-sm text-primary-foreground">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="font-display text-lg">{item}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </Section>
 
       {/* PROCESS */}
