@@ -305,9 +305,9 @@ function Home() {
       {/* SERVICES */}
       <Section id="services">
         <SectionHeading
-          label="Services"
-          title="Six panels. One end-to-end creator engine."
-          copy="Hover a panel to open it. Every service is delivered by the same in-house team, so nothing gets lost between strategy and publish."
+          label="Our Services"
+          title="Everything your brand needs to run creator campaigns."
+          copy="Influencer marketing, UGC, celebrity collaborations, social media management, production and talent management — delivered by one team."
         />
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => {
