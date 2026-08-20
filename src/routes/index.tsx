@@ -427,8 +427,8 @@ function Home() {
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
-            label="Featured Campaigns"
-            title="Campaigns that behaved like content, not ads."
+            label="Trusted By Brands"
+            title="Brands that grew with creator-led campaigns."
           />
         </div>
         <Marquee
