@@ -392,34 +392,31 @@ function Home() {
       {/* WHY BRANDS CHOOSE US — bento */}
       <Section>
         <SectionHeading
-          label="Why Brands Choose Us"
-          title="Production quality of an agency. Speed of a creator."
+          label="Why Choose Us"
+          title="Pan-India campaign management, run end to end."
         />
         <div className="mt-14 grid auto-rows-[minmax(11rem,auto)] gap-4 md:grid-cols-3">
           <Reveal className="md:col-span-2 md:row-span-2">
             <div className="glass-panel flex h-full flex-col justify-between rounded-[1.6rem] p-8">
-              <SectionLabel>Reach</SectionLabel>
+              <SectionLabel>Influencer Network</SectionLabel>
               <div>
                 <p className="text-ember font-display text-6xl font-semibold sm:text-8xl">
-                  <Counter to={20} suffix="M+" />
+                  <Counter to={10000} suffix="+" />
                 </p>
                 <p className="mt-3 max-w-md text-muted-foreground">
-                  Organic views generated across creator campaigns in the last 24 months — before a
-                  rupee of paid amplification.
+                  Verified influencers across India, covering every niche — from nano creators to
+                  celebrities.
                 </p>
               </div>
             </div>
           </Reveal>
-          {[
-            { big: "48h", label: "Creator shortlist turnaround" },
-            { big: "4.6x", label: "Median campaign ROAS" },
-            { big: "100%", label: "In-house shoot & post" },
-            { big: "15d", label: "Creator payout cycle" },
-          ].map((b, i) => (
-            <Reveal key={b.label} delay={i * 0.07}>
+          {WHY_CHOOSE_US.slice(1).map((label, i) => (
+            <Reveal key={label} delay={i * 0.07}>
               <div className="glass-panel group flex h-full flex-col justify-between rounded-[1.6rem] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/45">
-                <p className="font-display text-4xl group-hover:text-ember sm:text-5xl">{b.big}</p>
-                <p className="mt-3 text-sm text-muted-foreground">{b.label}</p>
+                <p className="font-display text-3xl text-white/15 transition-colors group-hover:text-primary/60">
+                  {String(i + 2).padStart(2, "0")}
+                </p>
+                <p className="mt-3 font-display text-lg">{label}</p>
               </div>
             </Reveal>
           ))}
