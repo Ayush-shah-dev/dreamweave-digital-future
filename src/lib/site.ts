@@ -172,28 +172,20 @@ export const TESTIMONIALS = [
 
 export const FAQS = [
   {
-    q: "Which cities do you operate in?",
-    a: "Our studio and head office are in Gandhinagar, and we shoot regularly across Ahmedabad, Surat, Vadodara and Rajkot. We run creator campaigns pan-India remotely.",
+    q: "How long does a campaign take?",
+    a: "Most campaigns are executed within 7–15 days, from brief to live posts.",
   },
   {
-    q: "What does an influencer marketing campaign cost?",
-    a: "Most brand campaigns start around ₹1.5L for a focused creator burst and scale to ₹15L+ for multi-city productions with 20+ creators. Budget is set by creator tier, deliverable volume and production scope.",
+    q: "Do you provide influencers across India?",
+    a: "Yes, we work with creators from all major cities and niches across India.",
   },
   {
-    q: "Do you handle content shoots as well as creator seeding?",
-    a: "Yes. We are a full-stack creator marketing agency — discovery, contracting, shoot production, editing, publishing and reporting all sit with one team.",
+    q: "Can you manage everything?",
+    a: "Yes. Strategy, influencer sourcing, negotiations, content approvals, publishing and reporting.",
   },
   {
-    q: "How do you pick creators for a brand?",
-    a: "We screen for audience overlap, authenticity, watch-time and past brand performance in your category — not follower count alone. Every shortlist ships with the data behind it.",
-  },
-  {
-    q: "How quickly can a campaign go live?",
-    a: "A standard reel campaign moves from brief to first publish in 10–14 days. Rush timelines are possible with our in-house production crew.",
-  },
-  {
-    q: "How do creators get paid?",
-    a: "Creators are paid within 15 days of approved deliverables, directly to their bank account, with a signed scope before the shoot.",
+    q: "What is the minimum campaign budget?",
+    a: "Campaigns can be customized based on your marketing goals and budget.",
   },
 ];
 
