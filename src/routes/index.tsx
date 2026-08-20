@@ -183,24 +183,27 @@ function Home() {
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionHeading
-              label="Who We Are"
-              title="A creator-first agency built inside a production studio."
-              copy="Dreamweave Digital is a creator marketing agency headquartered in Gandhinagar. We sit between brands and India's most watched creators — running discovery, contracting, shoots, edits, publishing and reporting under one roof."
+              label="About Dreamweave Digital"
+              title="Influencer marketing that delivers measurable business results."
+              copy="At Dreamweave Digital, we believe influencer marketing should deliver measurable business results — not just views. We specialize in connecting brands with carefully selected creators across every niche, from nano influencers to celebrities."
             />
             <div className="mt-10 space-y-6 border-l border-border pl-6">
               {[
                 {
-                  year: "2021",
-                  text: "Started as a two-person reel production unit in Gandhinagar.",
-                },
-                { year: "2023", text: "Crossed 250 verified creators across Gujarat and India." },
-                {
-                  year: "2024",
-                  text: "Built our in-house studio, drone and post-production team.",
+                  year: "Strategy",
+                  text: "We plan campaigns around your category, audience and business goal.",
                 },
                 {
-                  year: "2026",
-                  text: "500+ campaign shoots and 20M+ views generated for 50+ brands.",
+                  year: "Creator Selection",
+                  text: "Carefully selected creators across every niche — nano influencers to celebrities.",
+                },
+                {
+                  year: "Execution",
+                  text: "Content approval, publishing and campaign management handled by our team.",
+                },
+                {
+                  year: "Performance",
+                  text: "Reporting and performance tracking so you see exactly what the campaign returned.",
                 },
               ].map((t, i) => (
                 <Reveal key={t.year} delay={i * 0.08}>
@@ -212,6 +215,12 @@ function Home() {
                 </Reveal>
               ))}
             </div>
+            <Reveal delay={0.3}>
+              <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+                Whether you're a startup or an established brand, we create campaigns that build
+                trust and drive real business growth.
+              </p>
+            </Reveal>
           </div>
           <Reveal delay={0.15}>
             <TiltCard className="relative">
