@@ -35,10 +35,13 @@ import {
   CAMPAIGNS,
   CREATORS,
   FAQS,
+  INDUSTRIES,
   PROCESS,
   SERVICES,
   STATS,
   TESTIMONIALS,
+  WHY_CHOOSE_US,
+  WHY_INFLUENCER_MARKETING,
 } from "@/lib/site";
 import { isSupabaseConfigured } from "@/integrations/supabase/client";
 import { listFeaturedTestimonials } from "@/lib/public-content";
