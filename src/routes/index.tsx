@@ -500,7 +500,10 @@ function Home() {
                   key={t.quote}
                   className="glass-panel w-[22rem] shrink-0 rounded-3xl p-7 transition-colors duration-500 hover:border-primary/40 sm:w-[28rem]"
                 >
-                  <blockquote className="text-sm leading-relaxed text-foreground/90">
+                  <p aria-label="5 out of 5 stars" className="text-sm text-primary">
+                    ★★★★★
+                  </p>
+                  <blockquote className="mt-4 text-sm leading-relaxed text-foreground/90">
                     "{t.quote}"
                   </blockquote>
                   <figcaption className="mt-5 text-xs text-muted-foreground">
